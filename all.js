@@ -12,12 +12,14 @@
 
 var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null;
 
-var limit = 1000; // Safety
-
-//Trello.deauthorize();
-
 function error( message ) {
 	//alert( message );
+}
+
+var spamLimitCounter = 1000; // Safety
+function spamLimit( ) {
+	//return --limit < 0;
+	return false;
 }
 
 function getBestByNameIndex( name, index, items ) {
@@ -117,7 +119,7 @@ newChecklistsObserver.observe( document.body, { childList: true, characterData: 
 
 function showConvertToCardButton(location) {
 	if($(location).find('.ctcButtonImg').length) return; // Don't double add
-	if( --limit < 0 ) return;
+	if( spamLimit( ) ) return;
 
 	// Space the checkbox farther from the linkify icon
 	$(location).find( '.checklist-item-checkbox' ).css( 'left', '16px' );
@@ -131,7 +133,7 @@ function showConvertToCardButton(location) {
 
 function showConvertToCardLink(location) {
 	if($(location).find('.js-convert-item-to-link').length) return; // Don't double add
-	if( --limit < 0 ) return;
+	if( spamLimit( ) ) return;
 
 	// Add link to checkbox additional options
 	$("<a href='#' class='option convert js-convert-item-to-link'>Convert to Link</a>")
