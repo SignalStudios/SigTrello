@@ -1,14 +1,9 @@
 {
 	"manifest_version": 2,
 	
-	"name": "Trello Checklist-to-card Tweak",
+	"name": "SigTrello",
 	"description": "Modifies the checklist item convert-to-card action to replace the checklist item with a link instead of removing it outright.",
-	"version": "0.1",
-	
-	"permissions": [
-		"cookies",
-		"*://trello.com/*"
-	],
+	"version": "0.2",
 	
 	"content_scripts": [
 		{
