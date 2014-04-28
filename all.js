@@ -82,6 +82,7 @@ function replaceWithLink( ) {
 	var checklistTitle		= $checklist.find('.checklist-title h3').text( );
 	var checklistIndex		= $checklistList.find('.checklist').index($checklist);
 	
+	$this.toggle( );
 	// TODO: Learn how to tame JavaScript callback hell.
 	
 	// 1.  Identify the trello list
