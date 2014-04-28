@@ -6,10 +6,6 @@
  * See LICENSE.txt
  */
 
-// TODO:
-//	Debounce
-//	Rewrite in TypeScript ?
-
 var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null;
 
 function error( message ) {
