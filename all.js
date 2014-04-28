@@ -25,7 +25,7 @@ function getBestByNameIndex( name, index, items ) {
 	var matchingName = $.grep( items, function(i) { return i.name == name });
 	if( matchingName.length == 1 )
 		return matchingName[ 0 ];
-	
+
 	return null; // Ambiguous due to move of duplicately named list item, or no such item.
 }
 
@@ -40,6 +40,20 @@ function authorize( ) {
 	});
 }
 
+function getFlatName( $node ) {
+	var $elements = $node.contents( );
+	var s = "";
+	for( var i = 0; i < $elements.length; ++i ) {
+		var element = $elements.get(i);
+		if( element.nodeName == 'A' ) {
+			s += $(element).attr("href");
+		} else {
+			s += $(element).text( );
+		}
+	}
+	return s;
+}
+
 function replaceWithLink( ) {
 	var toLink = this;
 	if( !Trello.authorized() ) {
@@ -52,8 +66,8 @@ function replaceWithLink( ) {
 
 	var $checklistItem		= $this.parent('.checklist-item');
 	var $checklistItemText 	= $checklistItem.find('.checklist-item-details-text')
-	var hasLinks			= $checklistItemText.find('a').length > 0;
-	if( hasLinks )
+	var $links				= $checklistItemText.find('a');
+	if( $links.length == 1 && $links.text == $this.text )
 		return;
 
 	var baseURI				= window.document.baseURI;
@@ -63,6 +77,7 @@ function replaceWithLink( ) {
 	var $checklistList		= $checklist.parent('.checklist-list');
 	
 	var checklistItemTitle	= $checklistItemText.text( );
+	var checklistItemName	= getFlatName( $checklistItemText );
 	var checklistItemIndex	= $checklistItemsList.find('.checklist-item').index($checklistItem);
 	var checklistTitle		= $checklist.find('.checklist-title h3').text( );
 	var checklistIndex		= $checklistList.find('.checklist').index($checklist);
@@ -81,7 +96,7 @@ function replaceWithLink( ) {
 					var cardChecklist = getBestByNameIndex( checklistTitle, checklistIndex, cardInfo );
 					if( cardChecklist == null ) { error( "Checklist ambiguous or missing!" ); return; }
 
-					var cardChecklistItem = getBestByNameIndex( checklistItemTitle, checklistItemIndex, cardChecklist.checkItems );
+					var cardChecklistItem = getBestByNameIndex( checklistItemName, checklistItemIndex, cardChecklist.checkItems );
 					if( cardChecklistItem == null ) { error( "Checklist item ambiguous or missing!" ); return; }
 
 					// 3.  Post new card to the list
