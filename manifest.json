@@ -8,11 +8,11 @@
 	"content_scripts": [
 		{
 			"matches": [ "*://trello.com/*" ],
-			"js": [ "jquery-2.1.0.min.js", "client.js", "all.js" ]
+			"js": [ "jquery-2.1.0.min.js", "trello-client.js", "all.js" ]
 		}
 	],
 	
-    "web_accessible_resources": [
-	    "images/link.png"
-    ]
+	"web_accessible_resources": [
+		"images/link.png"
+	]
 }
