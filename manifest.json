@@ -3,7 +3,7 @@
 	
 	"name": "SigTrello",
 	"description": "Modifies the checklist item convert-to-card action to replace the checklist item with a link instead of removing it outright.",
-	"version": "0.3",
+	"version": "0.4",
 	
 	"content_scripts": [
 		{
