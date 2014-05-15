@@ -9,6 +9,7 @@
 ///<reference path='trello-client.d.ts'/>
 ///<reference path='chrome.d.ts'/>
 ///<reference path='mutation-observer.d.ts'/>
+///<reference path='sigtrello-dom-card-window.ts'/>
 var SigTrello;
 (function (SigTrello) {
     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null;
@@ -69,49 +70,39 @@ var SigTrello;
                 return false;
         }
 
+        var checklistItem = SigTrelloDom.CardWindow.ChecklistItem.ownerOf(this);
+        var checklist = checklistItem.checklist;
+        var card = checklist.card;
+
         var $this = $(this);
 
         var $checklistItem = $this.parent('.checklist-item');
-        var $checklistItemText = $checklistItem.find('.checklist-item-details-text');
-        var $links = $checklistItemText.find('a');
-        if ($links.length == 1 && $links.text == $this.text)
+        if (checklistItem.isAllOneUrl)
             return;
-
-        var baseURI = window.document.baseURI;
-        var cardShortId = baseURI.replace(/^http[s]?:\/\/trello.com\/c\/([^\/]+)\/.*/, "$1");
-        var $checklistItemsList = $checklistItem.parent('.checklist-items-list');
-        var $checklist = $checklistItemsList.parent('.checklist');
-        var $checklistList = $checklist.parent('.checklist-list');
-
-        var checklistItemTitle = $checklistItemText.text();
-        var checklistItemName = getFlatName($checklistItemText);
-        var checklistItemIndex = $checklistItemsList.find('.checklist-item').index($checklistItem);
-        var checklistTitle = $checklist.find('.checklist-title h3').text();
-        var checklistIndex = $checklistList.find('.checklist').index($checklist);
 
         $this.toggle();
 
         // TODO: Learn how to tame JavaScript callback hell.
         // 1.  Identify the trello list
-        Trello.get("cards/" + cardShortId + "/list", { fields: "" }).done(function (list) {
+        Trello.get("cards/" + card.shortId + "/list", { fields: "" }).done(function (list) {
             // 2. Identify the checklist item being replaced.
-            Trello.get("cards/" + cardShortId + "/checklists").done(function (cardInfo) {
-                var cardChecklist = getBestByNameIndex(checklistTitle, checklistIndex, cardInfo);
+            Trello.get("cards/" + card.shortId + "/checklists").done(function (cardInfo) {
+                var cardChecklist = getBestByNameIndex(checklist.title, checklist.index, cardInfo);
                 if (cardChecklist == null) {
                     error("Checklist ambiguous or missing!");
                     return;
                 }
 
-                var cardChecklistItem = getBestByNameIndex(checklistItemName, checklistItemIndex, cardChecklist.checkItems);
+                var cardChecklistItem = getBestByNameIndex(checklistItem.textEntered, checklistItem.index, cardChecklist.checkItems);
                 if (cardChecklistItem == null) {
                     error("Checklist item ambiguous or missing!");
                     return;
                 }
 
                 // 3.  Post new card to the list
-                Trello.post("lists/" + list.id + "/cards", { name: checklistItemTitle, desc: "Parent: " + baseURI + " " + checklistTitle, due: null }).done(function (newCard) {
+                Trello.post("lists/" + list.id + "/cards", { name: checklistItem.textDisplayed, desc: "Parent: " + card.url + " " + checklist.title, due: null }).done(function (newCard) {
                     // 4.  Replace checklist item with new card
-                    Trello.put("cards/" + cardShortId + "/checklist/" + cardChecklist.id + "/checkItem/" + cardChecklistItem.id + "/name", { value: newCard.url });
+                    Trello.put("cards/" + card.shortId + "/checklist/" + cardChecklist.id + "/checkItem/" + cardChecklistItem.id + "/name", { value: newCard.url });
                 });
             });
         });

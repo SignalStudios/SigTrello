@@ -8,11 +8,18 @@
 	"content_scripts": [
 		{
 			"matches": [ "*://trello.com/*" ],
-			"js": [ "jquery-2.1.0.min.js", "trello-client.js", "all.js" ]
+			"js": [
+				"jquery-2.1.0.min.js",
+				"trello-client.js",
+				"sigtrello-dom-card-window.js",
+				"all.js"
+			]
 		}
 	],
 	
 	"web_accessible_resources": [
-		"images/link.png"
+		"images/link.png",
+		"sigtrello-dom-card-window.ts", "sigtrello-dom-card-window.js.map",
+		"all.js", "all.ts", "all.js.map"
 	]
 }

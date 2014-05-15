@@ -66,6 +66,7 @@
     <Content Include="jquery-2.1.0.js" />
     <Content Include="jquery-2.1.0.min.js" />
     <Content Include="LICENSE.txt" />
+    <TypeScriptCompile Include="sigtrello-dom-card-window.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="manifest.json" />
