@@ -12,6 +12,9 @@
 ///<reference path='mutation-observer.d.ts'/>
 ///<reference path='sigtrello-dom-card-window.ts'/>
 
+
+interface JQueryXHR extends JQueryPromise {} // Some missing methods from jquery-2.1.0.d.ts
+
 module SigTrello {
 	var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null;
 
@@ -81,7 +84,7 @@ module SigTrello {
 		
 		$this.toggle( );
 		// TODO: Learn how to tame JavaScript callback hell.
-		
+
 		// 1.  Identify the trello list
 		Trello
 			.get( "cards/"+card.shortId+"/list", { fields: "" } )

@@ -43,10 +43,6 @@ interface TrelloChecklist {
 	checkItems	: TrelloChecklistItem[];
 }
 
-interface TrelloFuture {
-	done( callback : ( result : any ) => void ) : TrelloFuture;
-}
-
 interface TrelloGetParams {
 	fields	: string;
 }
@@ -64,9 +60,9 @@ interface TrelloPutParams {
 interface TrelloStatic {
 	authorize( args : TrelloAuthorizeArgs ) : void;
 	authorized( ) : boolean;
-	get	( url : string, params?: TrelloGetParams ) : TrelloFuture;
-	post( url : string, params : TrelloPostParams ) : TrelloFuture;
-	put	( url : string, params : TrelloPutParams ) : TrelloFuture;
+	get	( url : string, params?: TrelloGetParams )	: JQueryXHR;
+	post( url : string, params : TrelloPostParams )	: JQueryXHR;
+	put	( url : string, params : TrelloPutParams )	: JQueryXHR;
 }
 
 declare var Trello: TrelloStatic;

@@ -1,4 +1,4 @@
-/*!
+﻿/*!
 * SigTrello
 *
 * Copyright (C) 2014 Signal Studios
@@ -10,6 +10,7 @@
 ///<reference path='chrome.d.ts'/>
 ///<reference path='mutation-observer.d.ts'/>
 ///<reference path='sigtrello-dom-card-window.ts'/>
+
 var SigTrello;
 (function (SigTrello) {
     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null;
