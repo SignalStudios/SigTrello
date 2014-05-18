@@ -64,6 +64,11 @@ module SigTrello {
 		return s;
 	}
 
+	function toggleListCollapse( ) : boolean {
+		$(this).parents('.list').toggleClass('sigtrello-collapsed-list');
+		return true;
+	}
+
 	function replaceWithLink( ) : boolean {
 		var toLink = this;
 		if( !Trello.authorized() ) {
@@ -123,7 +128,7 @@ module SigTrello {
 		return false;
 	}
 
-	var newChecklistsObserver = new MutationObserver(function(mutations) {
+	var bodyChildrenObserver = new MutationObserver(function(mutations) {
 		var $checklistItemsList = $(".checklist-items-list .checklist-item");
 		for( var i = 0; i < $checklistItemsList.length; ++i ) {
 			showConvertToCardButton( $checklistItemsList.get(i) );
@@ -133,9 +138,14 @@ module SigTrello {
 		if( $checklistEditControls.length > 0 ) {
 			showConvertToCardLink( $checklistEditControls.get(0) );
 		}
+
+		var $listControls = $(".list");
+		for( var i = 0; i < $listControls.length; ++i ) {
+			showCollapseListLink( $listControls.get(i) );
+		}
 	});
 
-	newChecklistsObserver.observe( document.body, { childList: true, characterData: false, attributes: false, subtree: true } );
+	bodyChildrenObserver.observe( document.body, { childList: true, characterData: false, attributes: false, subtree: true } );
 
 	function showConvertToCardButton( location : Element ) : void {
 		if($(location).find('.ctcButtonImg').length) return; // Don't double add
@@ -159,6 +169,17 @@ module SigTrello {
 		$("<a href='#' class='option convert js-convert-item-to-link'>Convert to Link</a>")
 			.insertAfter( $(location).find('.js-delete-item').get(0) )
 			.click( replaceWithLink )
+			;
+	}
+
+	function showCollapseListLink( location : Element ) : void {
+		if($(location).find('.sigtrello-icon-collapse').length) return; // Don't double add
+		if( spamLimit( ) ) return;
+
+		// Add link to list collapse toggle
+		$("<a href='#' class='list-header-menu-icon icon-sm sigtrello-icon-collapse dark-hover'></a>")
+			.insertAfter( $(location).find('.icon-menu').get(0) )
+			.click( toggleListCollapse )
 			;
 	}
 }

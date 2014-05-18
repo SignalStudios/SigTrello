@@ -7,7 +7,12 @@
 	
 	"content_scripts": [
 		{
-			"matches": [ "*://trello.com/*" ],
+			"matches": [
+				"*://trello.com/*"
+			],
+			"css": [
+				"collapsing.css"
+			],
 			"js": [
 				"jquery-2.1.0.min.js",
 				"trello-client.js",
@@ -18,6 +23,7 @@
 	],
 	
 	"web_accessible_resources": [
+		"collapsing.css",
 		"images/link.png",
 		"sigtrello-dom-card-window.ts", "sigtrello-dom-card-window.js.map",
 		"all.js", "all.ts", "all.js.map"
