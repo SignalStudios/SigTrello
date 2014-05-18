@@ -4,6 +4,10 @@
 	margin: 113px -115px;
 }
 
+.list.sigtrello-collapsed-list:first-child {
+	margin-left: -103px;
+}
+
 .list.sigtrello-collapsed-list .list-cards {
 	display: none;
 }
