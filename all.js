@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 * SigTrello
 *
 * Copyright (C) 2014 Signal Studios
@@ -101,7 +101,17 @@ var SigTrello;
                 }
 
                 // 3.  Post new card to the list
-                Trello.post("lists/" + list.id + "/cards", { name: checklistItem.textDisplayed, desc: "Parent: " + card.url + " " + checklist.title, due: null }).done(function (newCard) {
+                Trello.post("lists/" + list.id + "/cards", {
+                    name: checklistItem.textDisplayed,
+                    desc: "Parent: " + card.url + " " + checklist.title,
+                    due: null,
+                    labels: card.labels.map(function (l) {
+                        return l.color;
+                    }).join(","),
+                    idMembers: card.members.map(function (m) {
+                        return m.id;
+                    }).join(",")
+                }).done(function (newCard) {
                     // 4.  Replace checklist item with new card
                     Trello.put("cards/" + card.shortId + "/checklist/" + cardChecklist.id + "/checkItem/" + cardChecklistItem.id + "/name", { value: newCard.url });
                 });

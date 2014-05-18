@@ -41,9 +41,33 @@ module SigTrelloDom {
 			public get url( )		: string		{ return this._url; }
 			public get shortId( )	: string		{ return this._shortId; } // Parse "mbdChsJG" out of "https://trello.com/c/mbdChsJG/185-test"
 			public get checklists( ): Checklist[]	{ return Checklist.allUnder( this.element ); }
+			public get members( )	: Member[]		{ return Member.allUnder( $(this.element).find(".card-detail-item-members").get(0) ); }
+			public get labels( )	: Label[]		{ return Label.allUnder( this.element ); }
 
 			private _url			: string;
 			private _shortId		: string;
+		}
+
+		export class Member {
+			constructor( public element : Element ) { }
+
+			public static ownerOf	( e : Element ) { return ownerOf	( e, ".member", "member", (e) => new Member(e) ); }
+			public static allUnder	( e : Element ) { return allUnder	( e, ".member", "member", (e) => new Member(e) ); }
+
+			public get avatarUrl( )		: string { return $(this.element).find( ".member-avatar" ).attr("src"); }
+			public get displayName( )	: string { return $(this.element).find( ".member-avatar" ).attr("title").replace( /^(.+)\((.+?)\)$/, "$1" ); }
+			//public get id( )			: string { return $(this.element).find( ".member-avatar" ).attr("title").replace( /^(.+)\((.+?)\)$/, "$2" ); }
+			public get id( )			: string { return $(this.element).attr( "data-idmem" ); }
+		}
+
+		export class Label {
+			constructor( public element : Element ) { }
+
+			public static ownerOf	( e : Element ) { return ownerOf	( e, ".card-label", "label", (e) => new Label(e) ); }
+			public static allUnder	( e : Element ) { return allUnder	( e, ".card-label", "label", (e) => new Label(e) ); }
+
+			public get colorLabelClass( )	: string { return $(this.element).attr("class").split(" ").filter( (s) => s.indexOf("card-label-") == 0 )[0]; }
+			public get color( )				: string { return this.colorLabelClass.replace( /^card-label-/, "" ); }
 		}
 
 		export class Checklist {

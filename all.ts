@@ -102,9 +102,17 @@ module SigTrello {
 
 						// 3.  Post new card to the list
 						Trello
-							.post( "lists/"+list.id+"/cards", { name: checklistItem.textDisplayed, desc: "Parent: "+card.url+" "+checklist.title, due: null } )
+							.post( "lists/"+list.id+"/cards", {
+								name:			checklistItem.textDisplayed,
+								desc:			"Parent: "+card.url+" "+checklist.title,
+								due:			null, // parse from DOM somehow?
+								labels:			card.labels.map( (l) => l.color ).join(","),
+								idMembers:		card.members.map( (m) => m.id ).join(","),
+								//	This doesn't work in this context, sadly.
+								//urlSource:		card.url,
+								//keepFromSource:	"due,labels,idMembers"
+							})
 							.done( ( newCard : TrelloCard ) => {
-
 								// 4.  Replace checklist item with new card
 								Trello
 									.put( "cards/"+card.shortId+"/checklist/"+cardChecklist.id+"/checkItem/"+cardChecklistItem.id+"/name", { value: newCard.url } );

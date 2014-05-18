@@ -73,9 +73,100 @@ var SigTrelloDom;
                 enumerable: true,
                 configurable: true
             });
+            Object.defineProperty(Card.prototype, "members", {
+                get: function () {
+                    return Member.allUnder($(this.element).find(".card-detail-item-members").get(0));
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Card.prototype, "labels", {
+                get: function () {
+                    return Label.allUnder(this.element);
+                },
+                enumerable: true,
+                configurable: true
+            });
             return Card;
         })();
         CardWindow.Card = Card;
+
+        var Member = (function () {
+            function Member(element) {
+                this.element = element;
+            }
+            Member.ownerOf = function (e) {
+                return ownerOf(e, ".member", "member", function (e) {
+                    return new Member(e);
+                });
+            };
+            Member.allUnder = function (e) {
+                return allUnder(e, ".member", "member", function (e) {
+                    return new Member(e);
+                });
+            };
+
+            Object.defineProperty(Member.prototype, "avatarUrl", {
+                get: function () {
+                    return $(this.element).find(".member-avatar").attr("src");
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Member.prototype, "displayName", {
+                get: function () {
+                    return $(this.element).find(".member-avatar").attr("title").replace(/^(.+)\((.+?)\)$/, "$1");
+                },
+                enumerable: true,
+                configurable: true
+            });
+
+            Object.defineProperty(Member.prototype, "id", {
+                //public get id( )			: string { return $(this.element).find( ".member-avatar" ).attr("title").replace( /^(.+)\((.+?)\)$/, "$2" ); }
+                get: function () {
+                    return $(this.element).attr("data-idmem");
+                },
+                enumerable: true,
+                configurable: true
+            });
+            return Member;
+        })();
+        CardWindow.Member = Member;
+
+        var Label = (function () {
+            function Label(element) {
+                this.element = element;
+            }
+            Label.ownerOf = function (e) {
+                return ownerOf(e, ".card-label", "label", function (e) {
+                    return new Label(e);
+                });
+            };
+            Label.allUnder = function (e) {
+                return allUnder(e, ".card-label", "label", function (e) {
+                    return new Label(e);
+                });
+            };
+
+            Object.defineProperty(Label.prototype, "colorLabelClass", {
+                get: function () {
+                    return $(this.element).attr("class").split(" ").filter(function (s) {
+                        return s.indexOf("card-label-") == 0;
+                    })[0];
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Label.prototype, "color", {
+                get: function () {
+                    return this.colorLabelClass.replace(/^card-label-/, "");
+                },
+                enumerable: true,
+                configurable: true
+            });
+            return Label;
+        })();
+        CardWindow.Label = Label;
 
         var Checklist = (function () {
             function Checklist(element) {
