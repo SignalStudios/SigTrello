@@ -63,6 +63,7 @@
     <TypeScriptCompile Include="trello-client.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="collapsing.css" />
     <Content Include="jquery-2.1.0.js" />
     <Content Include="jquery-2.1.0.min.js" />
     <Content Include="LICENSE.txt" />

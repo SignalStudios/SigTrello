@@ -48,9 +48,14 @@ interface TrelloGetParams {
 }
 
 interface TrelloPostParams {
-	name?	: string;
-	desc?	: string;
-	due?	: string;
+	name?			: string;
+	desc?			: string;
+	due?			: Date;
+	labels?			: string;	// comma seperated?
+	idMembers?		: string;	// comma seperated list of ids
+	urlSource?		: string;	// http:\\ or https:\\ url
+	keepFromSource?	: string;	// Properties to copy over from urlSource (default: all)
+	pos?			: any;		// "top", "bottom", or a positive number
 }
 
 interface TrelloPutParams {

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 * SigTrello
 *
 * Copyright (C) 2014 Signal Studios
@@ -63,6 +63,46 @@ var SigTrello;
         return s;
     }
 
+    var CollapseState;
+    (function (CollapseState) {
+        var lsId = "sigtrello-collapse-state-1";
+        var collapseState = {};
+
+        if (localStorage[lsId])
+            collapseState = JSON.parse(localStorage[lsId]);
+
+        function setCollapsedByName(board, list, collapsed) {
+            collapseState[board] = collapseState[board] || {};
+            collapseState[board][list] = collapsed;
+            localStorage[lsId] = JSON.stringify(collapseState);
+        }
+
+        function isCollapsedByName(board, list) {
+            return collapseState && collapseState[board] && collapseState[board][list];
+        }
+
+        function setCollapsed($list, collapsed) {
+            var boardName = $list.find('.board-header-btn-text').text().trim();
+            var listName = $list.find('.list-header-name').text().trim();
+            setCollapsedByName(boardName, listName, collapsed);
+        }
+        CollapseState.setCollapsed = setCollapsed;
+
+        function isCollapsed($list) {
+            var boardName = $list.find('.board-header-btn-text').text().trim();
+            var listName = $list.find('.list-header-name').text().trim();
+            return isCollapsedByName(boardName, listName);
+        }
+        CollapseState.isCollapsed = isCollapsed;
+    })(CollapseState || (CollapseState = {}));
+
+    function toggleListCollapse() {
+        var $list = $(this).parents('.list');
+        $list.toggleClass('sigtrello-collapsed-list');
+        CollapseState.setCollapsed($list, $list.hasClass('sigtrello-collapsed-list'));
+        return true;
+    }
+
     function replaceWithLink() {
         var toLink = this;
         if (!Trello.authorized()) {
@@ -101,7 +141,17 @@ var SigTrello;
                 }
 
                 // 3.  Post new card to the list
-                Trello.post("lists/" + list.id + "/cards", { name: checklistItem.textDisplayed, desc: "Parent: " + card.url + " " + checklist.title, due: null }).done(function (newCard) {
+                Trello.post("lists/" + list.id + "/cards", {
+                    name: checklistItem.textDisplayed,
+                    desc: "Parent: " + card.url + " " + checklist.title,
+                    due: null,
+                    labels: card.labels.map(function (l) {
+                        return l.color;
+                    }).join(","),
+                    idMembers: card.members.map(function (m) {
+                        return m.id;
+                    }).join(",")
+                }).done(function (newCard) {
                     // 4.  Replace checklist item with new card
                     Trello.put("cards/" + card.shortId + "/checklist/" + cardChecklist.id + "/checkItem/" + cardChecklistItem.id + "/name", { value: newCard.url });
                 });
@@ -111,7 +161,7 @@ var SigTrello;
         return false;
     }
 
-    var newChecklistsObserver = new MutationObserver(function (mutations) {
+    var bodyChildrenObserver = new MutationObserver(function (mutations) {
         var $checklistItemsList = $(".checklist-items-list .checklist-item");
         for (var i = 0; i < $checklistItemsList.length; ++i) {
             showConvertToCardButton($checklistItemsList.get(i));
@@ -121,9 +171,14 @@ var SigTrello;
         if ($checklistEditControls.length > 0) {
             showConvertToCardLink($checklistEditControls.get(0));
         }
+
+        var $listControls = $(".list");
+        for (var i = 0; i < $listControls.length; ++i) {
+            showCollapseListLink($listControls.get(i));
+        }
     });
 
-    newChecklistsObserver.observe(document.body, { childList: true, characterData: false, attributes: false, subtree: true });
+    bodyChildrenObserver.observe(document.body, { childList: true, characterData: false, attributes: false, subtree: true });
 
     function showConvertToCardButton(location) {
         if ($(location).find('.ctcButtonImg').length)
@@ -146,6 +201,20 @@ var SigTrello;
 
         // Add link to checkbox additional options
         $("<a href='#' class='option convert js-convert-item-to-link'>Convert to Link</a>").insertAfter($(location).find('.js-delete-item').get(0)).click(replaceWithLink);
+    }
+
+    function showCollapseListLink(location) {
+        var $list = $(location);
+        if ($list.find('.sigtrello-icon-collapse').length)
+            return;
+        if (spamLimit())
+            return;
+
+        // Add link to list collapse toggle
+        $("<a href='#' class='list-header-menu-icon icon-sm sigtrello-icon-collapse dark-hover'></a>").insertAfter($(location).find('.icon-menu').get(0)).click(toggleListCollapse);
+
+        if (CollapseState.isCollapsed($list))
+            $list.addClass('sigtrello-collapsed-list');
     }
 })(SigTrello || (SigTrello = {}));
 //# sourceMappingURL=all.js.map

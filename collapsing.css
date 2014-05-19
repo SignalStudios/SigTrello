@@ -1,0 +1,39 @@
+.list.sigtrello-collapsed-list {
+	transform: rotate(-90deg) translate(0.5px,0.5px) !important;
+	-webkit-transform: rotate(-90deg) translate(0.5px,0.5px) !important;
+	margin: 113px -115px;
+}
+
+.list.sigtrello-collapsed-list:first-child {
+	margin-left: -103px;
+}
+
+.list.sigtrello-collapsed-list .list-cards {
+	display: none;
+}
+
+.list.sigtrello-collapsed-list .open-card-composer {
+	display: none;
+}
+
+a.sigtrello-icon-collapse {
+	right: 18px;
+}
+
+.sigtrello-icon-collapse:before {
+	content: "\f029";
+	/*	see core.css .icon-*
+		009 - label		"label"
+		016 - eye		"follow"
+		020 - mag glass	"search"
+		021 - pin icon	"pin"
+		026 - plus		"add"
+		027 - minus		"remove"
+		029 - rotatey	"reopen"
+	*/
+}
+
+/*
+	<a href="#" class="list-header-menu-icon icon-sm icon-menu dark-hover js-open-list-menu"></a>
+	<a href="#" class="list-header-menu-icon icon-sm sigtrello-icon-collapse dark-hover"></a>
+*/
