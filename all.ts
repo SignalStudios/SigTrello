@@ -64,8 +64,40 @@ module SigTrello {
 		return s;
 	}
 
+	module CollapseState {
+		var lsId = "sigtrello-collapse-state-1";
+		var collapseState = {};
+
+		if( localStorage[lsId] )
+			collapseState = JSON.parse( localStorage[lsId] );
+
+		function setCollapsedByName( board : string, list : string, collapsed : boolean ) {
+			collapseState[board] = collapseState[board] || {};
+			collapseState[board][list] = collapsed;
+			localStorage[lsId] = JSON.stringify( collapseState );
+		}
+
+		function isCollapsedByName( board : string, list : string ) {
+			return collapseState && collapseState[board] && collapseState[board][list];
+		}
+
+		export function setCollapsed( $list : JQuery, collapsed : boolean ) {
+			var boardName = $list.find('.board-header-btn-text').text().trim();
+			var listName = $list.find('.list-header-name').text().trim();
+			setCollapsedByName( boardName, listName, collapsed );
+		}
+
+		export function isCollapsed( $list : JQuery ) {
+			var boardName = $list.find('.board-header-btn-text').text().trim();
+			var listName = $list.find('.list-header-name').text().trim();
+			return isCollapsedByName( boardName, listName );
+		}
+	}
+
 	function toggleListCollapse( ) : boolean {
-		$(this).parents('.list').toggleClass('sigtrello-collapsed-list');
+		var $list = $(this).parents('.list');
+		$list.toggleClass('sigtrello-collapsed-list');
+		CollapseState.setCollapsed( $list, $list.hasClass('sigtrello-collapsed-list') );
 		return true;
 	}
 
@@ -173,7 +205,8 @@ module SigTrello {
 	}
 
 	function showCollapseListLink( location : Element ) : void {
-		if($(location).find('.sigtrello-icon-collapse').length) return; // Don't double add
+		var $list = $(location);
+		if( $list.find('.sigtrello-icon-collapse').length) return; // Don't double add
 		if( spamLimit( ) ) return;
 
 		// Add link to list collapse toggle
@@ -181,5 +214,8 @@ module SigTrello {
 			.insertAfter( $(location).find('.icon-menu').get(0) )
 			.click( toggleListCollapse )
 			;
+
+		if( CollapseState.isCollapsed( $list ) )
+			$list.addClass('sigtrello-collapsed-list');
 	}
 }
