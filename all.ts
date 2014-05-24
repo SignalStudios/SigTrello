@@ -175,9 +175,41 @@ module SigTrello {
 		for( var i = 0; i < $listControls.length; ++i ) {
 			showCollapseListLink( $listControls.get(i) );
 		}
+
+		var p4web = "http://perforce.openwatcom.org:4000"; // test placeholder
+		if( p4web ) {
+			var changelistIcon = p4web + "/submittedChangelistIcon?ac=20";
+			var changelistUrlPattern = p4web + "/$1?ac=10";
+			var changelistDescPattern = "$1";
+			replaceWithServiceLinks( /(?:CL|Changelist)[ ]*[#]?[ ]*(\d+)/i, changelistIcon, changelistUrlPattern, changelistDescPattern );
+		}
 	});
 
 	bodyChildrenObserver.observe( document.body, { childList: true, characterData: false, attributes: false, subtree: true } );
+
+	function replaceWithServiceLinks( pattern : RegExp, iconUrl : string, linkReplacementPattern : string, textReplacementPattern : string ) : void {
+		var $where = $(".checklist-item-details-text, .current-comment p, .phenom-desc, .card-detail-item .markeddown p");
+		doReplaceWithServiceLinks( $where, pattern, iconUrl, linkReplacementPattern, textReplacementPattern );
+	}
+
+	function doReplaceWithServiceLinks( $where : JQuery, pattern : RegExp, iconUrl : string, linkReplacementPattern : string, textReplacementPattern : string ) : void {
+		var replacementPattern =
+			"<a href=\"" + linkReplacementPattern + "\" target=\"_blank\" class=\"known-service-link\">" +
+			"<img src=\"" + iconUrl + "\" class=\"known-service-icon\">" +
+			"<span>" + textReplacementPattern + "</span>" +
+			"</a>";
+
+		$where.each( (i,elem) => {
+			$(elem).contents( ).each( (childI,childElem) => {
+				if( childElem.nodeType == Node.TEXT_NODE ) {
+					var original = childElem.textContent;
+					var replaced = original.replace( pattern, replacementPattern );
+					if( original != replaced )
+						$(childElem).replaceWith( replaced );
+				}
+			});
+		});
+	}
 
 	function showConvertToCardButton( location : Element ) : void {
 		if($(location).find('.ctcButtonImg').length) return; // Don't double add
