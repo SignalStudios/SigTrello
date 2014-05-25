@@ -26,11 +26,6 @@ var SigTrello;
 
     function replaceWithLink() {
         var toLink = this;
-        if (!Trello.authorized()) {
-            SigTrello.authorize();
-            if (!Trello.authorized())
-                return false;
-        }
 
         var checklistItem = SigTrelloDom.CardWindow.ChecklistItem.ownerOf(this);
         var checklist = checklistItem.checklist;

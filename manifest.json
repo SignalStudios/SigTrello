@@ -21,6 +21,7 @@
 				"sigtrello-collapsing.js",
 				"sigtrello-checklist-item-to-card.js",
 				"sigtrello-service-links.js",
+				"sigtrello-sum-checklist-times.js",
 				"all.js"
 			]
 		}
@@ -33,6 +34,7 @@
 		"sigtrello-collapsing.ts", "sigtrello-collapsing.js.map",
 		"sigtrello-checklist-item-to-card.ts", "sigtrello-checklist-item-to-card.js.map",
 		"sigtrello-service-links.ts", "sigtrello-service-links.js.map",
+		"sigtrello-sum-checklist-times.ts", "sigtrello-sum-checklist-times.js.map",
 		"all.js", "all.ts", "all.js.map"
 	]
 }

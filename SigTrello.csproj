@@ -63,6 +63,7 @@
     <TypeScriptCompile Include="sigtrello-checklist-item-to-card.ts" />
     <TypeScriptCompile Include="sigtrello-collapsing.ts" />
     <TypeScriptCompile Include="sigtrello-service-links.ts" />
+    <TypeScriptCompile Include="sigtrello-sum-checklist-times.ts" />
     <TypeScriptCompile Include="trello-client.d.ts" />
   </ItemGroup>
   <ItemGroup>

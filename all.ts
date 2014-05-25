@@ -16,6 +16,9 @@
 interface JQueryXHR extends JQueryPromise {} // Some missing methods from jquery-2.1.0.d.ts
 
 module SigTrello {
+	if( !Trello.authorized() )
+		authorize( );
+
 	var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null;
 
 	export function error( message : string ) : void {
@@ -24,11 +27,11 @@ module SigTrello {
 
 	var spamLimitCounter = 1000; // Safety
 	export function spamLimit( ) : boolean {
-		//return --limit < 0;
+		//return --spamLimitCounter < 0;
 		return false;
 	}
 
-	export function authorize( ) : void {
+	function authorize( ) : void {
 		Trello.authorize({
 			type: "popup",
 			name: "SigTrello",
@@ -54,6 +57,8 @@ module SigTrello {
 		for( var i = 0; i < $listControls.length; ++i ) {
 			showCollapseListLink( $listControls.get(i) );
 		}
+
+		sumChecklistTimes( );
 
 		var p4web = "http://perforce.openwatcom.org:4000"; // test placeholder
 		if( p4web ) {

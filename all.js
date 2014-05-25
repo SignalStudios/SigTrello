@@ -14,6 +14,9 @@
 
 var SigTrello;
 (function (SigTrello) {
+    if (!Trello.authorized())
+        authorize();
+
     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null;
 
     function error(message) {
@@ -23,7 +26,7 @@ var SigTrello;
 
     var spamLimitCounter = 1000;
     function spamLimit() {
-        //return --limit < 0;
+        //return --spamLimitCounter < 0;
         return false;
     }
     SigTrello.spamLimit = spamLimit;
@@ -38,7 +41,6 @@ var SigTrello;
             expiration: "never"
         });
     }
-    SigTrello.authorize = authorize;
 
     var bodyChildrenObserver = new MutationObserver(function (mutations) {
         var $checklistItemsList = $(".checklist-items-list .checklist-item");
@@ -55,6 +57,8 @@ var SigTrello;
         for (var i = 0; i < $listControls.length; ++i) {
             SigTrello.showCollapseListLink($listControls.get(i));
         }
+
+        SigTrello.sumChecklistTimes();
 
         var p4web = "http://perforce.openwatcom.org:4000";
         if (p4web) {
