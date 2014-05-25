@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 * SigTrello
 *
 * Copyright (C) 2014 Signal Studios
@@ -24,6 +24,7 @@ var SigTrello;
         //return --limit < 0;
         return false;
     }
+    SigTrello.spamLimit = spamLimit;
 
     function getBestByNameIndex(name, index, items) {
         if (items.length > index && items[index].name == name)
@@ -61,46 +62,6 @@ var SigTrello;
             }
         }
         return s;
-    }
-
-    var CollapseState;
-    (function (CollapseState) {
-        var lsId = "sigtrello-collapse-state-1";
-        var collapseState = {};
-
-        if (localStorage[lsId])
-            collapseState = JSON.parse(localStorage[lsId]);
-
-        function setCollapsedByName(board, list, collapsed) {
-            collapseState[board] = collapseState[board] || {};
-            collapseState[board][list] = collapsed;
-            localStorage[lsId] = JSON.stringify(collapseState);
-        }
-
-        function isCollapsedByName(board, list) {
-            return collapseState && collapseState[board] && collapseState[board][list];
-        }
-
-        function setCollapsed($list, collapsed) {
-            var boardName = $list.find('.board-header-btn-text').text().trim();
-            var listName = $list.find('.list-header-name').text().trim();
-            setCollapsedByName(boardName, listName, collapsed);
-        }
-        CollapseState.setCollapsed = setCollapsed;
-
-        function isCollapsed($list) {
-            var boardName = $list.find('.board-header-btn-text').text().trim();
-            var listName = $list.find('.list-header-name').text().trim();
-            return isCollapsedByName(boardName, listName);
-        }
-        CollapseState.isCollapsed = isCollapsed;
-    })(CollapseState || (CollapseState = {}));
-
-    function toggleListCollapse() {
-        var $list = $(this).parents('.list');
-        $list.toggleClass('sigtrello-collapsed-list');
-        CollapseState.setCollapsed($list, $list.hasClass('sigtrello-collapsed-list'));
-        return true;
     }
 
     function replaceWithLink() {
@@ -174,7 +135,7 @@ var SigTrello;
 
         var $listControls = $(".list");
         for (var i = 0; i < $listControls.length; ++i) {
-            showCollapseListLink($listControls.get(i));
+            SigTrello.showCollapseListLink($listControls.get(i));
         }
 
         var p4web = "http://perforce.openwatcom.org:4000";
@@ -229,20 +190,6 @@ var SigTrello;
 
         // Add link to checkbox additional options
         $("<a href='#' class='option convert js-convert-item-to-link'>Convert to Link</a>").insertAfter($(location).find('.js-delete-item').get(0)).click(replaceWithLink);
-    }
-
-    function showCollapseListLink(location) {
-        var $list = $(location);
-        if ($list.find('.sigtrello-icon-collapse').length)
-            return;
-        if (spamLimit())
-            return;
-
-        // Add link to list collapse toggle
-        $("<a href='#' class='list-header-menu-icon icon-sm sigtrello-icon-collapse dark-hover'></a>").insertAfter($(location).find('.icon-menu').get(0)).click(toggleListCollapse);
-
-        if (CollapseState.isCollapsed($list))
-            $list.addClass('sigtrello-collapsed-list');
     }
 })(SigTrello || (SigTrello = {}));
 //# sourceMappingURL=all.js.map
