@@ -62,6 +62,7 @@
     <TypeScriptCompile Include="mutation-observer.d.ts" />
     <TypeScriptCompile Include="sigtrello-checklist-item-to-card.ts" />
     <TypeScriptCompile Include="sigtrello-collapsing.ts" />
+    <TypeScriptCompile Include="sigtrello-service-links.ts" />
     <TypeScriptCompile Include="trello-client.d.ts" />
   </ItemGroup>
   <ItemGroup>
