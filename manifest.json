@@ -19,6 +19,7 @@
 				"trello-client.js",
 				"sigtrello-dom-card-window.js",
 				"sigtrello-collapsing.js",
+				"sigtrello-checklist-item-to-card.js",
 				"all.js"
 			]
 		}
@@ -29,6 +30,7 @@
 		"images/link.png",
 		"sigtrello-dom-card-window.ts", "sigtrello-dom-card-window.js.map",
 		"sigtrello-collapsing.ts", "sigtrello-collapsing.js.map",
+		"sigtrello-checklist-item-to-card.ts", "sigtrello-checklist-item-to-card.js.map",
 		"all.js", "all.ts", "all.js.map"
 	]
 }
