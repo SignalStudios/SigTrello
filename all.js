@@ -39,20 +39,6 @@ var SigTrello;
     }
     SigTrello.authorize = authorize;
 
-    function getFlatName($node) {
-        var $elements = $node.contents();
-        var s = "";
-        for (var i = 0; i < $elements.length; ++i) {
-            var element = $elements.get(i);
-            if (element.nodeName == 'A') {
-                s += $(element).attr("href");
-            } else {
-                s += $(element).text();
-            }
-        }
-        return s;
-    }
-
     var bodyChildrenObserver = new MutationObserver(function (mutations) {
         var $checklistItemsList = $(".checklist-items-list .checklist-item");
         for (var i = 0; i < $checklistItemsList.length; ++i) {
