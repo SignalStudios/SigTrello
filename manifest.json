@@ -1,3 +1,4 @@
+
 {
 	"manifest_version": 2,
 	
@@ -17,6 +18,10 @@
 				"jquery-2.1.0.min.js",
 				"trello-client.js",
 				"sigtrello-dom-card-window.js",
+				"sigtrello-collapsing.js",
+				"sigtrello-checklist-item-to-card.js",
+				"sigtrello-service-links.js",
+				"sigtrello-sum-checklist-times.js",
 				"all.js"
 			]
 		}
@@ -26,6 +31,10 @@
 		"collapsing.css",
 		"images/link.png",
 		"sigtrello-dom-card-window.ts", "sigtrello-dom-card-window.js.map",
+		"sigtrello-collapsing.ts", "sigtrello-collapsing.js.map",
+		"sigtrello-checklist-item-to-card.ts", "sigtrello-checklist-item-to-card.js.map",
+		"sigtrello-service-links.ts", "sigtrello-service-links.js.map",
+		"sigtrello-sum-checklist-times.ts", "sigtrello-sum-checklist-times.js.map",
 		"all.js", "all.ts", "all.js.map"
 	]
 }

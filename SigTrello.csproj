@@ -60,6 +60,10 @@
     <TypeScriptCompile Include="chrome.d.ts" />
     <TypeScriptCompile Include="jquery-2.1.0.d.ts" />
     <TypeScriptCompile Include="mutation-observer.d.ts" />
+    <TypeScriptCompile Include="sigtrello-checklist-item-to-card.ts" />
+    <TypeScriptCompile Include="sigtrello-collapsing.ts" />
+    <TypeScriptCompile Include="sigtrello-service-links.ts" />
+    <TypeScriptCompile Include="sigtrello-sum-checklist-times.ts" />
     <TypeScriptCompile Include="trello-client.d.ts" />
   </ItemGroup>
   <ItemGroup>

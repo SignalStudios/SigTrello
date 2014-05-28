@@ -76,10 +76,12 @@ module SigTrelloDom {
 			public static ownerOf	( e : Element ) { return ownerOf	( e, ".checklist", "checklist", (e) => new Checklist(e) ); }
 			public static allUnder	( e : Element ) { return allUnder	( e, ".checklist", "checklist", (e) => new Checklist(e) ); }
 
-			public get items( )	: ChecklistItem[]	{ return ChecklistItem.allUnder( this.element ); }
-			public get card( )	: Card				{ return Card.current; }
-			public get title( )	: string			{ return $(this.element).find('.checklist-title h3').text( ); }
-			public get index( )	: number			{ return this.card.checklists.indexOf(this); }
+			public get items( )	: ChecklistItem[]		{ return ChecklistItem.allUnder( this.element ); }
+			public get card( )	: Card					{ return Card.current; }
+			public get displayTitle( ) : string			{ return $(this.element).find('.checklist-title h3').text( ); }
+			public set displayTitle( value : string )	{ if( this.displayTitle != value ) $(this.element).find('.checklist-title h3').text( value ); }
+			public get title( )	: string				{ return this.displayTitle; }
+			public get index( )	: number				{ return this.card.checklists.indexOf(this); }
 		}
 
 		export class ChecklistItem {
