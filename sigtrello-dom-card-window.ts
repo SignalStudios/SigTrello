@@ -36,13 +36,14 @@ module SigTrelloDom {
 
 			public static ownerOf	( e : Element ) { return ownerOf	( e, ".window", "card", (e) => new Card(e) ); }
 			public static allUnder	( e : Element ) { return allUnder	( e, ".window", "card", (e) => new Card(e) ); }
-			public static get current( ) { var $title = $(".card-detail-title"); return ($title.length >= 1) ? Card.ownerOf( $title.get(0) ) : null; }
+			public static get current( ) : Card { var $title = $(".card-detail-title"); return ($title.length >= 1) ? Card.ownerOf( $title.get(0) ) : null; }
 
 			public get url( )		: string		{ return this._url; }
 			public get shortId( )	: string		{ return this._shortId; } // Parse "mbdChsJG" out of "https://trello.com/c/mbdChsJG/185-test"
 			public get checklists( ): Checklist[]	{ return Checklist.allUnder( this.element ); }
 			public get members( )	: Member[]		{ return Member.allUnder( $(this.element).find(".card-detail-item-members").get(0) ); }
 			public get labels( )	: Label[]		{ return Label.allUnder( this.element ); }
+			public get comments( )	: Comment[]		{ return Comment.allUnder( this.element ); }
 
 			private _url			: string;
 			private _shortId		: string;
@@ -68,6 +69,20 @@ module SigTrelloDom {
 
 			public get colorLabelClass( )	: string { return $(this.element).attr("class").split(" ").filter( (s) => s.indexOf("card-label-") == 0 )[0]; }
 			public get color( )				: string { return this.colorLabelClass.replace( /^card-label-/, "" ); }
+		}
+
+		export class Comment {
+			constructor( public element : Element ) { }
+
+			public static ownerOf	( e : Element ) { return ownerOf	( e, ".phenom-comment", "comment", (e) => new Comment(e) ); }
+			public static allUnder	( e : Element ) { return allUnder	( e, ".phenom-comment", "comment", (e) => new Comment(e) ); }
+
+			public get creatorAvatarUrl( )		: string { return $(this.element).find( ".creator .member-avatar" ).attr( "src" ); }
+			public get creatorDisplayName( )	: string { return $(this.element).find( ".creator .member-avatar" ).attr("title").replace( /^(.+)\((.+?)\)$/, "$1" ); }
+			//public get creatorId( )			: string { return $(this.element).find( ".creator .member-avatar" ).attr("title").replace( /^(.+)\((.+?)\)$/, "$2" ); }
+
+			public get body( )					: JQuery { return $(this.element).find( ".action-comment p" ); }
+			public get timestamp( )				: string { return $(this.element).find( ".phenom-meta .date" ).attr( "dt" ); }
 		}
 
 		export class Checklist {

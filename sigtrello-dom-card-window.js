@@ -87,6 +87,13 @@ var SigTrelloDom;
                 enumerable: true,
                 configurable: true
             });
+            Object.defineProperty(Card.prototype, "comments", {
+                get: function () {
+                    return Comment.allUnder(this.element);
+                },
+                enumerable: true,
+                configurable: true
+            });
             return Card;
         })();
         CardWindow.Card = Card;
@@ -167,6 +174,55 @@ var SigTrelloDom;
             return Label;
         })();
         CardWindow.Label = Label;
+
+        var Comment = (function () {
+            function Comment(element) {
+                this.element = element;
+            }
+            Comment.ownerOf = function (e) {
+                return ownerOf(e, ".phenom-comment", "comment", function (e) {
+                    return new Comment(e);
+                });
+            };
+            Comment.allUnder = function (e) {
+                return allUnder(e, ".phenom-comment", "comment", function (e) {
+                    return new Comment(e);
+                });
+            };
+
+            Object.defineProperty(Comment.prototype, "creatorAvatarUrl", {
+                get: function () {
+                    return $(this.element).find(".creator .member-avatar").attr("src");
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Comment.prototype, "creatorDisplayName", {
+                get: function () {
+                    return $(this.element).find(".creator .member-avatar").attr("title").replace(/^(.+)\((.+?)\)$/, "$1");
+                },
+                enumerable: true,
+                configurable: true
+            });
+
+            Object.defineProperty(Comment.prototype, "body", {
+                //public get creatorId( )			: string { return $(this.element).find( ".creator .member-avatar" ).attr("title").replace( /^(.+)\((.+?)\)$/, "$2" ); }
+                get: function () {
+                    return $(this.element).find(".action-comment p");
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Comment.prototype, "timestamp", {
+                get: function () {
+                    return $(this.element).find(".phenom-meta .date").attr("dt");
+                },
+                enumerable: true,
+                configurable: true
+            });
+            return Comment;
+        })();
+        CardWindow.Comment = Comment;
 
         var Checklist = (function () {
             function Checklist(element) {
