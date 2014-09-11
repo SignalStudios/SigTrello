@@ -66,6 +66,13 @@ var SigTrelloDom;
                 enumerable: true,
                 configurable: true
             });
+            Object.defineProperty(Card.prototype, "title", {
+                get: function () {
+                    return $(this.element).find(".window-title-text").text();
+                },
+                enumerable: true,
+                configurable: true
+            });
             Object.defineProperty(Card.prototype, "checklists", {
                 get: function () {
                     return Checklist.allUnder(this.element);

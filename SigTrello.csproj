@@ -29,16 +29,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>57801</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:57801/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
@@ -59,6 +50,7 @@
     <TypeScriptCompile Include="all.ts" />
     <TypeScriptCompile Include="chrome.d.ts" />
     <TypeScriptCompile Include="jquery-2.1.0.d.ts" />
+    <TypeScriptCompile Include="jquery-ba-throttle-debounce.d.ts" />
     <TypeScriptCompile Include="mutation-observer.d.ts" />
     <TypeScriptCompile Include="trello-client.d.ts" />
   </ItemGroup>
@@ -66,6 +58,7 @@
     <Content Include="collapsing.css" />
     <Content Include="jquery-2.1.0.js" />
     <Content Include="jquery-2.1.0.min.js" />
+    <Content Include="jquery-ba-throttle-debounce.js" />
     <Content Include="LICENSE.txt" />
     <TypeScriptCompile Include="sigtrello-dom-card-window.ts" />
   </ItemGroup>

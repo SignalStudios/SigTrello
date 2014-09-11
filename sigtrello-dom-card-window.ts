@@ -40,6 +40,7 @@ module SigTrelloDom {
 
 			public get url( )		: string		{ return this._url; }
 			public get shortId( )	: string		{ return this._shortId; } // Parse "mbdChsJG" out of "https://trello.com/c/mbdChsJG/185-test"
+			public get title( )		: string		{ return $(this.element).find(".window-title-text").text( ); }
 			public get checklists( ): Checklist[]	{ return Checklist.allUnder( this.element ); }
 			public get members( )	: Member[]		{ return Member.allUnder( $(this.element).find(".card-detail-item-members").get(0) ); }
 			public get labels( )	: Label[]		{ return Label.allUnder( this.element ); }

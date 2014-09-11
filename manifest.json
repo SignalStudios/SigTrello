@@ -8,13 +8,15 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"*://trello.com/*"
+				"*://trello.com/*",
+				"*://api.trello.com/*"
 			],
 			"css": [
 				"collapsing.css"
 			],
 			"js": [
 				"jquery-2.1.0.min.js",
+				"jquery-ba-throttle-debounce.js",
 				"trello-client.js",
 				"sigtrello-dom-card-window.js",
 				"all.js"
