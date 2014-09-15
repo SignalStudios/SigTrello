@@ -17,12 +17,35 @@ var SigTrello;
 (function (SigTrello) {
     var enableAutomaticRenames = true;
 
+    function sumChecklistWork() {
+        var card = SigTrelloDom.CardWindow.Card.current;
+        if (!card || SigTrello.spamLimit())
+            return null;
+
+        var works = [];
+
+        card.checklists.forEach(function (checklist) {
+            checklist.items.forEach(function (checkitem) {
+                var parsed = SigTrello.parseTitleWork(checkitem.textDisplayed);
+                if (parsed) {
+                    works.push(parsed);
+                    return;
+                }
+
+                var badge = $(checkitem.element).find('.sigtrello-time');
+                for (var i = 0; i < badge.length; ++i) {
+                    works.push($(badge[i]).data('sigtrello-work'));
+                }
+            });
+        });
+
+        return works.length > 0 ? SigTrello.sumWork(works) : null;
+    }
+
     function sumCommentWork() {
         var card = SigTrelloDom.CardWindow.Card.current;
-        if (!card)
-            return;
-        if (SigTrello.spamLimit())
-            return;
+        if (!card || SigTrello.spamLimit())
+            return null;
 
         var estOriginal = undefined;
         var estRemaining = 0.0;
@@ -132,14 +155,17 @@ var SigTrello;
         var title = card.title;
 
         var comments = sumCommentWork();
+        var checklists = sumChecklistWork();
+        var sumFound = SigTrello.sumWork([comments, checklists]);
+
         var current = SigTrello.parseTitleWork(title);
-        if (comments == null)
+        if (sumFound == null)
             return;
         if (current == null)
             return;
 
         var format = 0 /* RawTitle */;
-        var expected = SigTrello.toTrelloPoints(format, comments);
+        var expected = SigTrello.toTrelloPoints(format, sumFound);
         var actual = SigTrello.toTrelloPoints(format, current);
 
         if (expected == actual) {

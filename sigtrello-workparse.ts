@@ -44,14 +44,18 @@ module SigTrello {
 	export function sumWork( works : IWork[] ) : IWork {
 		var sum = { "original": 0.0, "remaining": 0.0, "worked": 0.0 };
 
+		var foundAny = false;
 		for( var i = 0; i < works.length; ++i ) {
 			var work = works[i];
+			if( !work ) continue;
+
+			foundAny = true;
 			sum.original	+= work.original;
 			sum.remaining	+= work.remaining;
 			sum.worked		+= work.worked;
 		}
 
-		return sum;
+		return foundAny ? sum : null;
 	}
 
 	export function toTrelloPointsNumber3( n : number ) {

@@ -34,7 +34,7 @@ var SigTrello;
 
         var perc = toPercentage(work.worked, work.remaining + work.worked);
 
-        return $("<div class=\"sigtrello-time badge\"></div>").prop("title", SigTrello.toTrelloPoints(titleFormat, work)).attr("style", "border-radius: 3px; color: white; background: linear-gradient(to right, #24a828 " + perc + "%, #000000 " + perc + "%)").addClass(SigTrello.isWorkComplete(work) ? "badge-state-complete" : "").append($("<span class=\"badge-icon icon-sm icon-clock\" style=\"color: white;\"></span>")).append($("<span class=\"badge-text\"></span>").text(SigTrello.toTrelloPoints(badgeFormat, work)).prop("sigtrello-work", work));
+        return $("<div class=\"sigtrello-time badge\"></div>").attr("title", SigTrello.toTrelloPoints(titleFormat, work)).attr("style", "border-radius: 3px; color: white; background: linear-gradient(to right, #24a828 " + perc + "%, #000000 " + perc + "%)").addClass(SigTrello.isWorkComplete(work) ? "badge-state-complete" : "").append($("<span class=\"badge-icon icon-sm icon-clock\" style=\"color: white;\"></span>")).append($("<span class=\"badge-text\"></span>").text(SigTrello.toTrelloPoints(badgeFormat, work))).data('sigtrello-work', work);
     }
 
     function createChecklistBadge(work) {
@@ -43,7 +43,7 @@ var SigTrello;
 
         var perc = toPercentage(work.worked, work.remaining + work.worked);
 
-        return $("<span class=\"sigtrello-time\" style=\"\"></div>").prop("title", SigTrello.toTrelloPoints(titleFormat, work)).attr("style", "padding: 0px 4px; margin: 0px -4px 0px 4px; display: inline-block; text-decoration-line: initial; border-radius: 3px; color: white; background: linear-gradient(to right, #24a828 " + perc + "%, #000000 " + perc + "%)").addClass(SigTrello.isWorkComplete(work) ? "badge-state-complete" : "").append($("<span class=\"icon-sm icon-clock\" style=\"color: white;\"></span>")).append($("<span class=\"\"></span>").text(SigTrello.toTrelloPoints(badgeFormat, work)).prop("sigtrello-work", work));
+        return $("<span class=\"sigtrello-time\" style=\"\"></div>").attr("title", SigTrello.toTrelloPoints(titleFormat, work)).attr("style", "padding: 0px 3px 0px 0px; margin: 0px -4px 0px 4px; display: inline-block; text-decoration-line: initial; border-radius: 3px; color: white; background: linear-gradient(to right, #24a828 " + perc + "%, #000000 " + perc + "%)").addClass(SigTrello.isWorkComplete(work) ? "badge-state-complete" : "").append($("<span class=\"icon-sm icon-clock\" style=\"color: white;\"></span>")).append($("<span class=\"\"></span>").text(SigTrello.toTrelloPoints(badgeFormat, work))).data('sigtrello-work', work);
     }
 
     function element_replaceWithFakeBadges(node) {

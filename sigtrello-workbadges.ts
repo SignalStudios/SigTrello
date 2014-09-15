@@ -34,14 +34,13 @@ module SigTrello {
 		var perc = toPercentage( work.worked, work.remaining + work.worked );
 
 		return $("<div class=\"sigtrello-time badge\"></div>")
-			.prop( "title", toTrelloPoints( titleFormat, work ) )
+			.attr( "title", toTrelloPoints( titleFormat, work ) )
 			.attr( "style", "border-radius: 3px; color: white; background: linear-gradient(to right, #24a828 "+perc+"%, #000000 "+perc+"%)" )
 			.addClass( isWorkComplete( work ) ? "badge-state-complete" : "" )
 			.append( $("<span class=\"badge-icon icon-sm icon-clock\" style=\"color: white;\"></span>") )
-			.append( $("<span class=\"badge-text\"></span>")
-				.text( toTrelloPoints( badgeFormat, work ) )
-				.prop( "sigtrello-work", work )
-			);
+			.append( $("<span class=\"badge-text\"></span>").text( toTrelloPoints( badgeFormat, work ) ) )
+			.data( 'sigtrello-work', work )
+			;
 	}
 
 	function createChecklistBadge( work : IWork ) : JQuery {
@@ -51,14 +50,13 @@ module SigTrello {
 		var perc = toPercentage( work.worked, work.remaining + work.worked );
 
 		return $("<span class=\"sigtrello-time\" style=\"\"></div>")
-			.prop( "title", toTrelloPoints( titleFormat, work ) )
+			.attr( "title", toTrelloPoints( titleFormat, work ) )
 			.attr( "style", "padding: 0px 3px 0px 0px; margin: 0px -4px 0px 4px; display: inline-block; text-decoration-line: initial; border-radius: 3px; color: white; background: linear-gradient(to right, #24a828 "+perc+"%, #000000 "+perc+"%)" )
 			.addClass( isWorkComplete( work ) ? "badge-state-complete" : "" )
 			.append( $("<span class=\"icon-sm icon-clock\" style=\"color: white;\"></span>") )
-			.append( $("<span class=\"\"></span>")
-				.text( toTrelloPoints( badgeFormat, work ) )
-				.prop( "sigtrello-work", work )
-			);
+			.append( $("<span class=\"\"></span>").text( toTrelloPoints( badgeFormat, work ) ) )
+			.data( 'sigtrello-work', work )
+			;
 	}
 
 	function element_replaceWithFakeBadges( node : Node ) : void {
