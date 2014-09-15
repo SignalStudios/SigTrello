@@ -7,26 +7,24 @@
 */
 ///<reference path='jquery-2.1.0.d.ts'/>
 ///<reference path='jquery-ba-throttle-debounce.d.ts'/>
-///<reference path='trello-client.d.ts'/>
-///<reference path='sigtrello-debug.ts'/>
-///<reference path='sigtrello-core.ts'/>
 ///<reference path='sigtrello-checklist2cards.ts'/>
+///<reference path='sigtrello-collapselists.ts'/>
 var SigTrello;
 (function (SigTrello) {
     function onChangesImpl() {
         var $checklistItemsList = $(".checklist-items-list .checklist-item");
         for (var i = 0; i < $checklistItemsList.length; ++i) {
-            showConvertToCardButton($checklistItemsList.get(i));
+            SigTrello.showConvertToCardButton($checklistItemsList.get(i));
         }
 
         var $checklistEditControls = $(".checklist-item-details .edit-controls");
         if ($checklistEditControls.length > 0) {
-            showConvertToCardLink($checklistEditControls.get(0));
+            SigTrello.showConvertToCardLink($checklistEditControls.get(0));
         }
 
         var $listControls = $(".list");
         for (var i = 0; i < $listControls.length; ++i) {
-            showCollapseListLink($listControls.get(i));
+            SigTrello.showCollapseListLink($listControls.get(i));
         }
     }
 
@@ -34,9 +32,9 @@ var SigTrello;
 
     var bodyChildrenObserver = new MutationObserver(function (mutations) {
         onChanges();
-        onChangesMaybeDone();
+        SigTrello.onChangesMaybeDone();
     });
 
     bodyChildrenObserver.observe(document.body, { childList: true, characterData: false, attributes: false, subtree: true });
 })(SigTrello || (SigTrello = {}));
-//# sourceMappingURL=all.js.map
+//# sourceMappingURL=sigtrello-all.js.map

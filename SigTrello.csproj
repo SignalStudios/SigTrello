@@ -47,11 +47,16 @@
     <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
   </PropertyGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="all.ts" />
+    <TypeScriptCompile Include="sigtrello-all.ts" />
     <TypeScriptCompile Include="chrome.d.ts" />
     <TypeScriptCompile Include="jquery-2.1.0.d.ts" />
     <TypeScriptCompile Include="jquery-ba-throttle-debounce.d.ts" />
     <TypeScriptCompile Include="mutation-observer.d.ts" />
+    <TypeScriptCompile Include="sigtrello-core.ts" />
+    <TypeScriptCompile Include="sigtrello-debug.ts" />
+    <TypeScriptCompile Include="sigtrello-worksum.ts" />
+    <TypeScriptCompile Include="sigtrello-checklist2cards.ts" />
+    <TypeScriptCompile Include="sigtrello-collapselists.ts" />
     <TypeScriptCompile Include="trello-client.d.ts" />
   </ItemGroup>
   <ItemGroup>
