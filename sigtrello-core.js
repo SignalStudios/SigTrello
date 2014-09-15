@@ -28,6 +28,9 @@ var SigTrello;
     SigTrello.getBestByNameIndex = getBestByNameIndex;
 
     function authorize() {
+        if (Trello.authorized())
+            return true;
+
         Trello.authorize({
             type: "popup",
             name: "SigTrello",
@@ -36,6 +39,8 @@ var SigTrello;
             scope: { read: true, write: true, account: false },
             expiration: "never"
         });
+
+        return Trello.authorized();
     }
     SigTrello.authorize = authorize;
 

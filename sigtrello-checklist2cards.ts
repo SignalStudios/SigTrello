@@ -16,12 +16,9 @@
 
 module SigTrello {
 	function replaceWithLink( ) : boolean {
+		if( !authorize( ) ) return;
+
 		var toLink = this;
-		if( !Trello.authorized() ) {
-			authorize( );
-			if( !Trello.authorized() )
-				return false;
-		}
 
 		var checklistItem	= SigTrelloDom.CardWindow.ChecklistItem.ownerOf( this );
 		var checklist		= checklistItem.checklist;

@@ -110,12 +110,8 @@ var SigTrello;
     var lastAttemptedRenameTime = 0;
 
     function shouldChangeName(card, newName) {
-        if (!Trello.authorized()) {
-            SigTrello.authorize();
-            if (!Trello.authorized())
-                return;
-        }
-
+        if (!SigTrello.authorize())
+            return;
         var now = $.now();
         var renameThrottle = (card == lastAttemptedRenameCard && newName == lastAttemptedRenameName) ? (60 * 1000) : 500;
 

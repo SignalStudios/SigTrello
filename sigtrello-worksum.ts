@@ -109,12 +109,7 @@ module SigTrello {
 	var lastAttemptedRenameTime : number = 0;
 
 	function shouldChangeName( card : SigTrelloDom.CardWindow.Card, newName : string ) {
-		if( !Trello.authorized() ) {
-			authorize( );
-			if( !Trello.authorized() )
-				return;
-		}
-
+		if( !authorize( ) ) return;
 		var now = $.now( );
 		var renameThrottle = ( card == lastAttemptedRenameCard && newName == lastAttemptedRenameName ) ? (60 * 1000) : 500;
 

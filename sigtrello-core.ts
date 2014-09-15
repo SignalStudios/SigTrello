@@ -26,7 +26,10 @@ module SigTrello {
 		return null; // Ambiguous due to move of duplicately named list item, or no such item.
 	}
 
-	export function authorize( ) : void {
+	export function authorize( ) : boolean{
+		if( Trello.authorized( ) )
+			return true;
+
 		Trello.authorize({
 			type: "popup",
 			name: "SigTrello",
@@ -35,6 +38,8 @@ module SigTrello {
 			scope: { read: true, write: true, account: false },
 			expiration: "never"
 		});
+
+		return Trello.authorized( );
 	}
 
 	export function getFlatName( $node : JQuery ) : string {
