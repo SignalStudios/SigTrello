@@ -7,9 +7,12 @@
  */
 
 ///<reference path='sigtrello-debug.ts'/>
+///<reference path='sigtrello-workparse.ts'/>
 ///<reference path='sigtrellodom-boardwindow.ts'/>
 
 module SigTrello {
+	var convertToBadges = true;
+
 	function toPercentage( n : number, total : number ) {
 		if( total == 0.0 )
 			return "100";
@@ -18,11 +21,13 @@ module SigTrello {
 	}
 
 	export function showTitleWorkBadges( ) : void {
+		if( !convertToBadges ) return;
+
 		board_showCardWorkBadges( );
 		card_showChecklistWorkBadges( );
 	}
 
-	function createBadge( work : IWork ) : JQuery {
+	function createCardBadge( work : IWork ) : JQuery {
 		var titleFormat = WorkFormat.Badge_LongDescription;
 		var badgeFormat = WorkFormat.Badge_WorkOfCurrent;
 
@@ -39,8 +44,38 @@ module SigTrello {
 			);
 	}
 
-	function element_replaceWithFakeBadges( ) : void {
-		// ...
+	function createChecklistBadge( work : IWork ) : JQuery {
+		var titleFormat = WorkFormat.Badge_LongDescription;
+		var badgeFormat = WorkFormat.Badge_WorkOfCurrent;
+
+		var perc = toPercentage( work.worked, work.remaining + work.worked );
+
+		return $("<span class=\"sigtrello-time\" style=\"\"></div>")
+			.prop( "title", toTrelloPoints( titleFormat, work ) )
+			.attr( "style", "padding: 0px 3px 0px 0px; margin: 0px -4px 0px 4px; display: inline-block; text-decoration-line: initial; border-radius: 3px; color: white; background: linear-gradient(to right, #24a828 "+perc+"%, #000000 "+perc+"%)" )
+			.addClass( isWorkComplete( work ) ? "badge-state-complete" : "" )
+			.append( $("<span class=\"icon-sm icon-clock\" style=\"color: white;\"></span>") )
+			.append( $("<span class=\"\"></span>")
+				.text( toTrelloPoints( badgeFormat, work ) )
+				.prop( "sigtrello-work", work )
+			);
+	}
+
+	function element_replaceWithFakeBadges( node : Node ) : void {
+		if( node.nodeType == Node.TEXT_NODE ) {
+			var work		= parseTitleWork( node.textContent );
+			var newTitle	= stripTitleWork( node.textContent );
+
+			if( node.textContent != newTitle ) {
+				var badge = createChecklistBadge( work );
+				$(node.parentNode).append( badge );
+				node.textContent = newTitle;
+			}
+		} else {
+			var children = node.childNodes;
+			for( var i = 0; i < children.length; ++i )
+				element_replaceWithFakeBadges( children[i] );
+		}
 	}
 
 	function board_showCardWorkBadges( ) {
@@ -55,7 +90,7 @@ module SigTrello {
 				{
 					card.displayName = newDisplayName;
 					card.badges.forEach( (badge) => { if( badge.isTimeEst ) card.removeBadge( badge ); } );
-					card.addBadge( createBadge( work ) );
+					card.addBadge( createCardBadge( work ) );
 				}
 			});
 		});
@@ -66,31 +101,9 @@ module SigTrello {
 		if( !card || spamLimit( ) ) return;
 
 		card.checklists.forEach( (checklist) => {
-			//if( card.badges.filter( badge => badge.isPoints ).length > 0 ) return; // Don't double add
-
-			//var work = parseTitleWork( card.displayName );
-			//var newDisplayName = stripTitleWork( card.displayName );
-			//if( newDisplayName != card.displayName )
-			//{
-			//	console.log( "Hiding display name:", card.displayName, "=>", newDisplayName );
-			//	card.displayName = newDisplayName;
-
-			//	var titleFormat = WorkFormat.Badge_LongDescription;
-			//	var badgeFormat = WorkFormat.Badge_WorkOfCurrent;
-
-			//	var perc = toPercentage( work.worked, work.remaining + work.worked );
-
-			//	var newBadge = $("<div class=\"badge\"></div>")
-			//		.prop( "title", toTrelloPoints( titleFormat, work ) )
-			//		.attr( "style", "border-radius: 3px; color: white; background: linear-gradient(to right, #24a828 "+perc+"%, #000000 "+perc+"%)" )
-			//		.addClass( isWorkComplete( work ) ? "badge-state-complete" : "" )
-			//		.append( $("<span class=\"badge-icon icon-sm icon-clock\" style=\"color: white;\"></span>") )
-			//		.append( $("<span class=\"badge-text\"></span>")
-			//			.text( toTrelloPoints( badgeFormat, work ) )
-			//			.prop( "sigtrello-work", work )
-			//		);
-			//	card.addBadge( newBadge );
-			//}
+			checklist.items.forEach( (checkitem) => {
+				element_replaceWithFakeBadges( $(checkitem.element).find('.checklist-item-details-text')[0] );
+			});
 		});
 	}
 }
