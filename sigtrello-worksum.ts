@@ -12,7 +12,7 @@
 ///<reference path='chrome.d.ts'/>
 ///<reference path='mutation-observer.d.ts'/>
 ///<reference path='sigtrello-debug.ts'/>
-///<reference path='sigtrello-dom-card-window.ts'/>
+///<reference path='sigtrellodom-cardwindow.ts'/>
 
 module SigTrello {
 	var enableAutomaticRenames = true;

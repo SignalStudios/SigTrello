@@ -11,7 +11,7 @@
 ///<reference path='mutation-observer.d.ts'/>
 ///<reference path='sigtrello-debug.ts'/>
 ///<reference path='sigtrello-core.ts'/>
-///<reference path='sigtrello-dom-card-window.ts'/>
+///<reference path='sigtrellodom-cardwindow.ts'/>
 var SigTrello;
 (function (SigTrello) {
     function replaceWithLink() {

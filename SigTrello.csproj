@@ -57,6 +57,7 @@
     <TypeScriptCompile Include="sigtrello-worksum.ts" />
     <TypeScriptCompile Include="sigtrello-checklist2cards.ts" />
     <TypeScriptCompile Include="sigtrello-collapselists.ts" />
+    <TypeScriptCompile Include="sigtrellodom-common.ts" />
     <TypeScriptCompile Include="trello-client.d.ts" />
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +66,7 @@
     <Content Include="jquery-2.1.0.min.js" />
     <Content Include="jquery-ba-throttle-debounce.js" />
     <Content Include="LICENSE.txt" />
-    <TypeScriptCompile Include="sigtrello-dom-card-window.ts" />
+    <TypeScriptCompile Include="sigtrellodom-cardwindow.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="manifest.json" />

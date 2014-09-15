@@ -8,25 +8,9 @@
 
 ///<reference path='jquery-2.1.0.d.ts'/>
 ///<reference path='chrome.d.ts'/>
+///<reference path='sigtrellodom-common.ts'/>
 
 module SigTrelloDom {
-	function getOrCreateCached<T>( element : Element, cacheId : string, create : ( element : Element ) => T ) {
-		var cached : T = element[cacheId];
-		if( cached == null )
-			element[cacheId] = cached = create( element );
-		return cached;
-	}
-
-	function ownerOf<T>( element : Element, selector : string, cacheId : string, create : ( element : Element ) => T ) : T {
-		return getOrCreateCached( $(element).parents(selector).get(0), cacheId, create );
-	}
-
-	function allUnder<T>( element : Element, selector : string, cacheId : string, create : ( element : Element ) => T ) : T[] {
-		return $(element).find(selector).map( (index,childElement) => {
-			return getOrCreateCached( childElement, cacheId, create );
-		}).toArray( );
-	}
-
 	export module CardWindow {
 		export class Card {
 			constructor( public element : Element ) {

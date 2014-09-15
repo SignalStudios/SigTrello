@@ -23,8 +23,9 @@
 				"sigtrello-collapselists.js",
 				"sigtrello-core.js",
 				"sigtrello-debug.js",
-				"sigtrello-dom-card-window.js",
-				"sigtrello-worksum.js"
+				"sigtrello-worksum.js",
+				"sigtrellodom-common.js",
+				"sigtrellodom-cardwindow.js"
 			]
 		}
 	],
@@ -38,7 +39,8 @@
 		"sigtrello-collapselists.ts",		"sigtrello-collapselists.js.map",
 		"sigtrello-core.ts",				"sigtrello-core.js.map",
 		"sigtrello-debug.ts",				"sigtrello-debug.js.map",
-		"sigtrello-dom-card-window.ts",		"sigtrello-dom-card-window.js.map",
-		"sigtrello-worksum.ts",				"sigtrello-worksum.js.map"
+		"sigtrello-worksum.ts",				"sigtrello-worksum.js.map",
+		"sigtrellodom-common.ts",			"sigtrellodom-common.js.map",
+		"sigtrellodom-cardwindow.ts",		"sigtrellodom-cardwindow.js.map"
 	]
 }

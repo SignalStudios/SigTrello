@@ -334,4 +334,4 @@ var SigTrelloDom;
     })(SigTrelloDom.CardWindow || (SigTrelloDom.CardWindow = {}));
     var CardWindow = SigTrelloDom.CardWindow;
 })(SigTrelloDom || (SigTrelloDom = {}));
-//# sourceMappingURL=sigtrello-dom-card-window.js.map
+//# sourceMappingURL=sigtrellodom-cardwindow.js.map
