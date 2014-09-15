@@ -154,6 +154,9 @@ var SigTrelloDom;
             Card.prototype.addBadge = function (badge) {
                 $(this.element).find(".badges").append(badge);
             };
+            Card.prototype.removeBadge = function (badge) {
+                $(badge.element).remove();
+            };
             return Card;
         })();
         BoardWindow.Card = Card;
@@ -173,37 +176,49 @@ var SigTrelloDom;
                 });
             };
 
-            Object.defineProperty(Badge.prototype, "isPoints", {
-                get: function () {
-                    return $(this).hasClass("badge-points");
-                },
-                enumerable: true,
-                configurable: true
-            });
             Object.defineProperty(Badge.prototype, "isComments", {
+                // Core Trello badge categories
                 get: function () {
-                    return $(this).find(".icon-comment").length > 0;
+                    return $(this.element).find(".icon-comment").length > 0;
                 },
                 enumerable: true,
                 configurable: true
             });
             Object.defineProperty(Badge.prototype, "isChecklists", {
                 get: function () {
-                    return $(this).find(".icon-checklist").length > 0;
+                    return $(this.element).find(".icon-checklist").length > 0;
                 },
                 enumerable: true,
                 configurable: true
             });
             Object.defineProperty(Badge.prototype, "isAttachments", {
                 get: function () {
-                    return $(this).find(".icon-attachment").length > 0;
+                    return $(this.element).find(".icon-attachment").length > 0;
                 },
                 enumerable: true,
                 configurable: true
             });
             Object.defineProperty(Badge.prototype, "isDescription", {
                 get: function () {
-                    return $(this).find(".icon-desc").length > 0;
+                    return $(this.element).find(".icon-desc").length > 0;
+                },
+                enumerable: true,
+                configurable: true
+            });
+
+            Object.defineProperty(Badge.prototype, "isTrelloScrumPoints", {
+                // Other Extension badge categories
+                get: function () {
+                    return $(this.element).hasClass("badge-points");
+                },
+                enumerable: true,
+                configurable: true
+            });
+
+            Object.defineProperty(Badge.prototype, "isTimeEst", {
+                // SigTrello Extension badge categories
+                get: function () {
+                    return $(this.element).hasClass("sigtrello-time");
                 },
                 enumerable: true,
                 configurable: true

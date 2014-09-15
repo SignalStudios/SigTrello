@@ -58,6 +58,7 @@ module SigTrelloDom {
 
 			public get badges( )	: Badge[]			{ return Badge.allUnder( this.element ); }
 			public addBadge( badge )					{ $(this.element).find(".badges").append( badge ); }
+			public removeBadge( badge : Badge )			{ $(badge.element).remove(); }
 
 			private _url			: string;
 			private _shortId		: string;
@@ -69,11 +70,17 @@ module SigTrelloDom {
 			public static ownerOf	( e : Element ) { return ownerOf	( e, ".badge", "bw-badge", (e) => new Badge(e) ); }
 			public static allUnder	( e : Element ) { return allUnder	( e, ".badge", "bw-badge", (e) => new Badge(e) ); }
 
-			public get isPoints( )		: boolean { return $(this).hasClass( "badge-points" ); }
-			public get isComments( )	: boolean { return $(this).find( ".icon-comment" )		.length > 0; }
-			public get isChecklists( )	: boolean { return $(this).find( ".icon-checklist" )	.length > 0; }
-			public get isAttachments( )	: boolean { return $(this).find( ".icon-attachment" )	.length > 0; }
-			public get isDescription( )	: boolean { return $(this).find( ".icon-desc" )			.length > 0; }
+			// Core Trello badge categories
+			public get isComments( )			: boolean { return $(this.element).find( ".icon-comment" )		.length > 0; }
+			public get isChecklists( )			: boolean { return $(this.element).find( ".icon-checklist" )	.length > 0; }
+			public get isAttachments( )			: boolean { return $(this.element).find( ".icon-attachment" )	.length > 0; }
+			public get isDescription( )			: boolean { return $(this.element).find( ".icon-desc" )			.length > 0; }
+
+			// Other Extension badge categories
+			public get isTrelloScrumPoints( )	: boolean { return $(this.element).hasClass( "badge-points" ); }
+
+			// SigTrello Extension badge categories
+			public get isTimeEst( )				: boolean { return $(this.element).hasClass( "sigtrello-time" ); }
 		}
 	}
 }

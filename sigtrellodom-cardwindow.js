@@ -14,17 +14,45 @@ var SigTrelloDom;
         var Card = (function () {
             function Card(element) {
                 this.element = element;
-                this._url = window.document.baseURI;
-                this._shortId = window.document.baseURI.replace(/^http[s]?:\/\/trello.com\/c\/([^\/]+)\/.*/, "$1");
+                this._url = Card.currentUrl;
+                this._shortId = Card.currentShortId;
             }
+            Object.defineProperty(Card, "urlRegexp", {
+                get: function () {
+                    return /^http[s]?:\/\/trello.com\/c\/([^\/]+)\/.*/;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Card, "currentUrl", {
+                get: function () {
+                    var m = Card.urlRegexp.exec(window.document.baseURI);
+                    return m ? m[0] : null;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Card, "currentShortId", {
+                get: function () {
+                    var m = Card.urlRegexp.exec(window.document.baseURI);
+                    return m ? m[1] : null;
+                },
+                enumerable: true,
+                configurable: true
+            });
+
             Card.ownerOf = function (e) {
                 return SigTrelloDom.ownerOf(e, ".window", "card", function (e) {
                     return new Card(e);
+                }, function (c) {
+                    return c.shortId != Card.currentShortId;
                 });
             };
             Card.allUnder = function (e) {
                 return SigTrelloDom.allUnder(e, ".window", "card", function (e) {
                     return new Card(e);
+                }, function (c) {
+                    return c.shortId != Card.currentShortId;
                 });
             };
             Object.defineProperty(Card, "current", {

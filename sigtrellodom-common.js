@@ -9,22 +9,25 @@
 ///<reference path='chrome.d.ts'/>
 var SigTrelloDom;
 (function (SigTrelloDom) {
-    function getOrCreateCached(element, cacheId, create) {
+    function getOrCreateCached(element, cacheId, create, invalidate) {
         var cached = element[cacheId];
-        if (cached == null)
+        if (cached == null || (invalidate && invalidate(cached)))
             element[cacheId] = cached = create(element);
         return cached;
     }
-    SigTrelloDom.getOrCreateCached = getOrCreateCached;
 
-    function ownerOf(element, selector, cacheId, create) {
-        return getOrCreateCached($(element).parents(selector).get(0), cacheId, create);
+    function invalidateCached(element, cacheId) {
+        element[cacheId] = null;
+    }
+
+    function ownerOf(element, selector, cacheId, create, invalidate) {
+        return getOrCreateCached($(element).parents(selector).get(0), cacheId, create, invalidate);
     }
     SigTrelloDom.ownerOf = ownerOf;
 
-    function allUnder(element, selector, cacheId, create) {
+    function allUnder(element, selector, cacheId, create, invalidate) {
         return $(element).find(selector).map(function (index, childElement) {
-            return getOrCreateCached(childElement, cacheId, create);
+            return getOrCreateCached(childElement, cacheId, create, invalidate);
         }).toArray();
     }
     SigTrelloDom.allUnder = allUnder;

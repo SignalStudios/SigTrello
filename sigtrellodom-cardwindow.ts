@@ -13,13 +13,17 @@
 module SigTrelloDom {
 	export module CardWindow {
 		export class Card {
+			static get urlRegexp( ) : RegExp { return /^http[s]?:\/\/trello.com\/c\/([^\/]+)\/.*/; }
+			static get currentUrl( ) : string		{ var m = Card.urlRegexp.exec( window.document.baseURI ); return m ? m[0] : null; }
+			static get currentShortId( ) : string	{ var m = Card.urlRegexp.exec( window.document.baseURI ); return m ? m[1] : null; }
+
 			constructor( public element : Element ) {
-				this._url		= window.document.baseURI;
-				this._shortId	= window.document.baseURI.replace( /^http[s]?:\/\/trello.com\/c\/([^\/]+)\/.*/, "$1" );
+				this._url		= Card.currentUrl;
+				this._shortId	= Card.currentShortId;
 			}
 
-			public static ownerOf	( e : Element ) { return ownerOf	( e, ".window", "card", (e) => new Card(e) ); }
-			public static allUnder	( e : Element ) { return allUnder	( e, ".window", "card", (e) => new Card(e) ); }
+			public static ownerOf	( e : Element ) { return ownerOf	( e, ".window", "card", (e) => new Card(e), (c) => c.shortId != Card.currentShortId ); }
+			public static allUnder	( e : Element ) { return allUnder	( e, ".window", "card", (e) => new Card(e), (c) => c.shortId != Card.currentShortId ); }
 			public static get current( ) : Card { var $title = $(".card-detail-title"); return ($title.length >= 1) ? Card.ownerOf( $title.get(0) ) : null; }
 
 			public get url( )		: string		{ return this._url; }
