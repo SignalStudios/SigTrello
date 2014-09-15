@@ -54,9 +54,12 @@
     <TypeScriptCompile Include="mutation-observer.d.ts" />
     <TypeScriptCompile Include="sigtrello-core.ts" />
     <TypeScriptCompile Include="sigtrello-debug.ts" />
+    <TypeScriptCompile Include="sigtrello-workbadges.ts" />
+    <TypeScriptCompile Include="sigtrello-workparse.ts" />
     <TypeScriptCompile Include="sigtrello-worksum.ts" />
     <TypeScriptCompile Include="sigtrello-checklist2cards.ts" />
     <TypeScriptCompile Include="sigtrello-collapselists.ts" />
+    <TypeScriptCompile Include="sigtrellodom-boardwindow.ts" />
     <TypeScriptCompile Include="sigtrellodom-common.ts" />
     <TypeScriptCompile Include="trello-client.d.ts" />
   </ItemGroup>

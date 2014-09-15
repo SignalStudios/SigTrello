@@ -26,6 +26,8 @@ var SigTrello;
         for (var i = 0; i < $listControls.length; ++i) {
             SigTrello.showCollapseListLink($listControls.get(i));
         }
+
+        SigTrello.showTitleWorkBadges();
     }
 
     var onChanges = $.throttle(200, onChangesImpl);

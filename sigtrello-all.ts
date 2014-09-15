@@ -27,6 +27,8 @@ module SigTrello {
 		for( var i = 0; i < $listControls.length; ++i ) {
 			showCollapseListLink( $listControls.get(i) );
 		}
+
+		showTitleWorkBadges( );
 	}
 
 	var onChanges = $.throttle( 200, onChangesImpl );

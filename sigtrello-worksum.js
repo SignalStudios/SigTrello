@@ -11,6 +11,7 @@
 ///<reference path='chrome.d.ts'/>
 ///<reference path='mutation-observer.d.ts'/>
 ///<reference path='sigtrello-debug.ts'/>
+///<reference path='sigtrello-workparse.ts'/>
 ///<reference path='sigtrellodom-cardwindow.ts'/>
 var SigTrello;
 (function (SigTrello) {
@@ -96,56 +97,6 @@ var SigTrello;
         return foundAnyWork ? { "original": estOriginal, "remaining": estRemaining, "worked": estWorked } : null;
     }
 
-    function parseTitleWork(title) {
-        if (!title)
-            return null;
-
-        var matchOriginal = /\((\d*\.?\d*)\)/gi.exec(title);
-        var matchWorked = /\[(\d*\.?\d*)\]/gi.exec(title);
-        var matchRemaining = /\{(\d*\.?\d*)\}/gi.exec(title);
-
-        //console.log( title, matchOriginal, matchWorked, matchRemaining );
-        if (matchOriginal || matchWorked || matchRemaining) {
-            var estOriginal = matchOriginal ? parseFloat(matchOriginal[1]) : 0.0;
-            var estWorked = matchWorked ? parseFloat(matchWorked[1]) : 0.0;
-            var estRemaining = matchRemaining ? parseFloat(matchRemaining[1]) : Math.max(estOriginal - estWorked, 0.0);
-
-            return { "original": estOriginal, "remaining": estRemaining, "worked": estWorked };
-        } else {
-            return null;
-        }
-    }
-
-    function stripTitleWork(title) {
-        title = title.replace(/\s*\((\d*\.?\d*)\)\s*/i, "");
-        title = title.replace(/\s*\[(\d*\.?\d*)\]\s*/i, "");
-        title = title.replace(/\s*\{(\d*\.?\d*)\}\s*/i, "");
-        return title;
-    }
-
-    function sumWork(works) {
-        var sum = { "original": 0.0, "remaining": 0.0, "worked": 0.0 };
-
-        for (var i = 0; i < works.length; ++i) {
-            var work = works[i];
-            sum.original += work.original;
-            sum.remaining += work.remaining;
-            sum.worked += work.worked;
-        }
-
-        return sum;
-    }
-
-    function toTrelloPointsNumber(n) {
-        var digits = (Math.abs(n) < 10.0) ? n.toFixed(2) : (Math.abs(n) < 100.0) ? n.toFixed(1) : n.toFixed(0);
-
-        return /^(\d+\.??\d*?)\.?0*$/.exec(digits)[1];
-    }
-
-    function toTrelloPointsFormat(work) {
-        return "(" + toTrelloPointsNumber(work.original) + ") [" + toTrelloPointsNumber(work.worked) + "] {" + toTrelloPointsNumber(work.remaining) + "}";
-    }
-
     function doRename(card, newName) {
         console.log("Kick off rename of \"" + card.title + "\" => \"" + newName + "\"");
         if (enableAutomaticRenames)
@@ -185,19 +136,20 @@ var SigTrello;
         var title = card.title;
 
         var comments = sumCommentWork();
-        var current = parseTitleWork(title);
+        var current = SigTrello.parseTitleWork(title);
         if (comments == null)
             return;
         if (current == null)
             return;
 
-        var expected = toTrelloPointsFormat(comments);
-        var actual = toTrelloPointsFormat(current);
+        var format = 0 /* RawTitle */;
+        var expected = SigTrello.toTrelloPoints(format, comments);
+        var actual = SigTrello.toTrelloPoints(format, current);
 
         if (expected == actual) {
             //console.log( "Expected == actual == ", expected );
         } else {
-            var newTitle = stripTitleWork(title) + " " + expected;
+            var newTitle = SigTrello.stripTitleWork(title) + " " + expected;
 
             //console.log( "Expected (", expected, ") != actual (", actual, ")" );
             //console.log( "Should rename \"" + title + "\" => \"" + newTitle + "\"" );

@@ -12,16 +12,11 @@
 ///<reference path='chrome.d.ts'/>
 ///<reference path='mutation-observer.d.ts'/>
 ///<reference path='sigtrello-debug.ts'/>
+///<reference path='sigtrello-workparse.ts'/>
 ///<reference path='sigtrellodom-cardwindow.ts'/>
 
 module SigTrello {
 	var enableAutomaticRenames = true;
-
-	interface IWork {
-		original:	number;
-		remaining:	number;
-		worked:		number;
-	}
 
 	function sumCommentWork( ) : IWork {
 		var card = SigTrelloDom.CardWindow.Card.current;
@@ -101,59 +96,6 @@ module SigTrello {
 		return foundAnyWork ? { "original": estOriginal, "remaining": estRemaining, "worked": estWorked } : null;
 	}
 
-	function parseTitleWork( title : string ) : IWork {
-		if( !title )
-			return null;
-
-		var matchOriginal	= /\((\d*\.?\d*)\)/gi.exec( title );
-		var matchWorked		= /\[(\d*\.?\d*)\]/gi.exec( title );
-		var matchRemaining	= /\{(\d*\.?\d*)\}/gi.exec( title );
-
-		//console.log( title, matchOriginal, matchWorked, matchRemaining );
-
-		if( matchOriginal || matchWorked || matchRemaining ) {
-			var estOriginal	: number = matchOriginal	? parseFloat( matchOriginal[1]	) : 0.0;
-			var estWorked	: number = matchWorked		? parseFloat( matchWorked[1]	) : 0.0;
-			var estRemaining: number = matchRemaining	? parseFloat( matchRemaining[1]	) : Math.max( estOriginal - estWorked, 0.0 );
-
-			return { "original": estOriginal, "remaining": estRemaining, "worked": estWorked };
-		} else {
-			return null;
-		}
-	}
-
-	function stripTitleWork( title : string ) : string {
-		title = title.replace( /\s*\((\d*\.?\d*)\)\s*/i, "" );
-		title = title.replace( /\s*\[(\d*\.?\d*)\]\s*/i, "" );
-		title = title.replace( /\s*\{(\d*\.?\d*)\}\s*/i, "" );
-		return title;
-	}
-
-	function sumWork( works : IWork[] ) : IWork {
-		var sum = { "original": 0.0, "remaining": 0.0, "worked": 0.0 };
-
-		for( var i = 0; i < works.length; ++i ) {
-			var work = works[i];
-			sum.original	+= work.original;
-			sum.remaining	+= work.remaining;
-			sum.worked		+= work.worked;
-		}
-
-		return sum;
-	}
-
-	function toTrelloPointsNumber( n : number ) {
-		var digits = (Math.abs( n ) < 10.0) ? n.toFixed(2)
-			: (Math.abs( n ) < 100.0) ? n.toFixed(1)
-			: n.toFixed(0);
-
-		return /^(\d+\.??\d*?)\.?0*$/.exec( digits )[1];
-	}
-
-	function toTrelloPointsFormat( work : IWork ) {
-		return "(" + toTrelloPointsNumber( work.original ) + ") [" + toTrelloPointsNumber( work.worked ) + "] {" + toTrelloPointsNumber( work.remaining ) + "}";
-	}
-
 	function doRename( card : SigTrelloDom.CardWindow.Card, newName : string ) {
 		console.log( "Kick off rename of \"" + card.title + "\" => \"" + newName + "\"" );
 		if( enableAutomaticRenames )
@@ -196,8 +138,9 @@ module SigTrello {
 		if( comments == null ) return;
 		if( current == null ) return;
 
-		var expected = toTrelloPointsFormat( comments );
-		var actual = toTrelloPointsFormat( current );
+		var format = WorkFormat.RawTitle;
+		var expected = toTrelloPoints( format, comments );
+		var actual = toTrelloPoints( format, current );
 
 		if( expected == actual ) {
 			//console.log( "Expected == actual == ", expected );
