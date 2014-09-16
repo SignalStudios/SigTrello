@@ -272,9 +272,20 @@ var SigTrelloDom;
                 enumerable: true,
                 configurable: true
             });
-            Object.defineProperty(Checklist.prototype, "title", {
+            Object.defineProperty(Checklist.prototype, "displayTitle", {
                 get: function () {
                     return $(this.element).find('.checklist-title h3').text();
+                },
+                set: function (value) {
+                    if (this.displayTitle != value)
+                        $(this.element).find('.checklist-title h3').text(value);
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Checklist.prototype, "title", {
+                get: function () {
+                    return this.displayTitle;
                 },
                 enumerable: true,
                 configurable: true

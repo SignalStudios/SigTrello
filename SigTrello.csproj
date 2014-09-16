@@ -62,6 +62,7 @@
     <TypeScriptCompile Include="sigtrello-collapselists.ts" />
     <TypeScriptCompile Include="sigtrellodom-boardwindow.ts" />
     <TypeScriptCompile Include="sigtrellodom-common.ts" />
+    <TypeScriptCompile Include="sigtrello-sum-checklist-times.ts" />
     <TypeScriptCompile Include="trello-client.d.ts" />
   </ItemGroup>
   <ItemGroup>

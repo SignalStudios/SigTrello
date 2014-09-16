@@ -28,6 +28,8 @@ module SigTrello {
 			showCollapseListLink( $listControls.get(i) );
 		}
 
+		sumChecklistTimes( );
+
 		var p4web = "http://perforce.openwatcom.org:4000"; // test placeholder
 		if( p4web ) {
 			var changelistIcon = p4web + "/submittedChangelistIcon?ac=20";

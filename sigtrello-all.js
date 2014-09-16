@@ -27,6 +27,8 @@ var SigTrello;
             SigTrello.showCollapseListLink($listControls.get(i));
         }
 
+        SigTrello.sumChecklistTimes();
+
         var p4web = "http://perforce.openwatcom.org:4000";
         if (p4web) {
             var changelistIcon = p4web + "/submittedChangelistIcon?ac=20";
