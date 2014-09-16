@@ -41,18 +41,4 @@ module SigTrello {
 
 		return Trello.authorized( );
 	}
-
-	export function getFlatName( $node : JQuery ) : string {
-		var $elements = $node.contents( );
-		var s = "";
-		for( var i = 0; i < $elements.length; ++i ) {
-			var element = $elements.get(i);
-			if( element.nodeName == 'A' ) {
-				s += $(element).attr("href");
-			} else {
-				s += $(element).text( );
-			}
-		}
-		return s;
-	}
 }
