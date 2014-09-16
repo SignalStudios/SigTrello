@@ -23,6 +23,7 @@
 
 				"sigtrello-checklist2cards.js",
 				"sigtrello-collapselists.js",
+				"sigtrello-servicelinks.js",
 				"sigtrello-core.js",
 				"sigtrello-debug.js",
 
@@ -45,6 +46,7 @@
 
 		"sigtrello-checklist2cards.ts",		"sigtrello-checklist2cards.js.map",
 		"sigtrello-collapselists.ts",		"sigtrello-collapselists.js.map",
+		"sigtrello-servicelinks.ts",		"sigtrello-servicelinks.js.map",
 		"sigtrello-core.ts",				"sigtrello-core.js.map",
 		"sigtrello-debug.ts",				"sigtrello-debug.js.map",
 

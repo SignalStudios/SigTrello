@@ -28,6 +28,14 @@ module SigTrello {
 			showCollapseListLink( $listControls.get(i) );
 		}
 
+		var p4web = "http://perforce.openwatcom.org:4000"; // test placeholder
+		if( p4web ) {
+			var changelistIcon = p4web + "/submittedChangelistIcon?ac=20";
+			var changelistUrlPattern = p4web + "/$1?ac=10";
+			var changelistDescPattern = "$1";
+			replaceWithServiceLinks( /(?:CL|Changelist)[ ]*[#]?[ ]*(\d+)/i, changelistIcon, changelistUrlPattern, changelistDescPattern );
+		}
+
 		showTitleWorkBadges( );
 	}
 

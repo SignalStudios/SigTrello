@@ -54,6 +54,7 @@
     <TypeScriptCompile Include="mutation-observer.d.ts" />
     <TypeScriptCompile Include="sigtrello-core.ts" />
     <TypeScriptCompile Include="sigtrello-debug.ts" />
+    <TypeScriptCompile Include="sigtrello-servicelinks.ts" />
     <TypeScriptCompile Include="sigtrello-workbadges.ts" />
     <TypeScriptCompile Include="sigtrello-workparse.ts" />
     <TypeScriptCompile Include="sigtrello-worksum.ts" />
