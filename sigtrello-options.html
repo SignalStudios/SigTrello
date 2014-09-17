@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+	<title>Options &ndash; Signal Extensions for Trello</title>
+	<link rel="stylesheet" href="sigtrello-options.css">
+</head><body>
+	<div class="settings">
+	<h1>Options &ndash; Signal Extensions for Trello</h1>
+	<table><tr>
+		<th> </th>
+		<th colspan="2" class="category">Enable Features</th>
+	</tr><tr>
+		<th>Time Tracking Badges</th>
+		<td><input id="option-display-workbadge-enable" type="checkbox" checked /></td>
+		<td>
+			<em>Likely interferes with 'Scrum for Trello'</em><br>
+			Parses an extension of Scrum for Trello's formatting:<br>
+			(original estimate) [worked estimate] {remaining estimate}<br>
+		</td>
+	</tr><tr>
+		<th>Collapseable Card Lists</th>
+		<td><input id="option-display-listcollapse-enable" type="checkbox" checked /></td>
+		<td>
+			<em>Doesn't play well with 'Slim Lists for Trello'</em>
+		</td>
+	</tr><tr>
+		<th>Display Perforce Links</th>
+		<td><input id="option-display-p4weblinks-enable" type="checkbox" checked /></td>
+		<td>
+			Converts "CL# 12345" into a P4Web service link
+		</td>
+	</tr><tr>
+		<th>Checklist Item to Checklist Card Item</th>
+		<td><input id="option-display-checklist2cards-enable" type="checkbox" checked /></td>
+		<td>
+			<em>Requires auth,</em> converts checklist items to linked cards.<br>
+			Each item gains a linkify action immediately to the left of the checkbox.
+		</td>
+	</tr><tr>
+		<th>Rename Cards<br>(by Time Estimate)</th>
+		<td><input id="option-actions-worksum-enable" type="checkbox" checked /></td>
+		<td>
+			<em>Requires auth,</em> allows SigTrello to rename cards to include updated times.<br>
+			Uses a variation on Scrum for Trello's formatting:<br>
+			(original estimate) [worked estimate] {remaining estimate}<br>
+		</td>
+	</tr><tr>
+	</tr><tr>
+		<th> </th>
+		<th colspan="2" class="category">Time Worked Badges (Display)</th>
+	</tr><tr>
+		<th><label>Text</label></th>
+		<td colspan="2"><select id="option-display-workbadge-text">
+			<option value="Badge_WorkOfCurrent"			>Work Completed (vs Current Estimate)</option>
+			<option value="Badge_WorkOfOriginal"		>Work Completed (vs Original Estimate)</option>
+			<option value="Badge_RemainingOfCurrent"	>Work Remaining (vs Current Estimate)</option>
+			<option value="Badge_RemainingOfOriginal"	>Work Remaining (vs Original Estaimte)</option>
+		</select></td>
+	</tr><tr>
+		<th><label>Background</label></th>
+		<td colspan="2"><select id="option-display-workbadge-background">
+			<option value=""			>...</option>
+		</select></td>
+	</tr><tr>
+		<th> </th>
+		<th colspan="2" class="category">Service Links</th>
+	</tr><tr>
+		<th><label>P4Web Root</label></th>
+		<td colspan="2">
+			<input type="text" value="http://perforce.openwatcom.org:4000" id="option-display-p4web-rooturl">
+		</td>
+	</tr><tr>
+		<th> </th>
+		<th colspan="2" class="category">Developer Options</th>
+	</tr><tr>
+		<th>NoSpam</th>
+		<td colspan="2"><input id="option-developer-nospam" type="checkbox" /> (Limit queries per session to reduce the chances of browser hangs)</td>
+	</tr><tr>
+		<th>Log Errors</th>
+		<td colspan="2"><input id="option-developer-log-errors" type="checkbox" /> (Spams console.log)</td>
+	</tr><tr>
+		<th> </th>
+		<th colspan="2" class="category">&nbsp;</th>
+	</tr><tr>
+		<th colspan="3" style="text-align: center">
+			<input id="action-settings-save" type="button" value="Save">
+			<input id="action-settings-cancel" type="button" value="Cancel">
+		</th>
+	</tr></table></div>
+</body></html>

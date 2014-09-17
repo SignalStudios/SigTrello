@@ -71,6 +71,8 @@
     <Content Include="jquery-2.1.0.min.js" />
     <Content Include="jquery-ba-throttle-debounce.js" />
     <Content Include="LICENSE.txt" />
+    <Content Include="sigtrello-options.css" />
+    <Content Include="sigtrello-options.html" />
     <TypeScriptCompile Include="sigtrellodom-cardwindow.ts" />
   </ItemGroup>
   <ItemGroup>

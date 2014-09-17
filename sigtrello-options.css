@@ -1,0 +1,48 @@
+﻿* {
+	font-family: Arial;
+}
+
+h1 { text-align: center; }
+
+body {
+	text-align: center;
+}
+
+.settings {
+	margin: 30pt 0pt;
+	border: 10px solid #EEE;
+	border-radius: 10px;
+	display: inline-block;
+	background: #EEE;
+	text-align: left;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > * {
+	vertical-align: top;
+}
+
+td {
+	padding: 6pt 4pt;
+	background: #FFF;
+}
+
+th {
+	text-align: left;
+	padding: 4pt;
+	font-weight: normal;
+}
+
+.category {
+	font-weight: bold;
+	font-size: 12pt;
+	text-align: center;
+	padding: 10px 0px;
+}
+
+select, textarea, input[type="text"] {
+		width: 100%;
+}
