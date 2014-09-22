@@ -26,16 +26,9 @@ var SigTrello;
 
         card.checklists.forEach(function (checklist) {
             checklist.items.forEach(function (checkitem) {
-                var parsed = SigTrello.parseTitleWork(checkitem.textDisplayed);
-                if (parsed) {
+                var parsed = SigTrello.parseTitleWorkOrBadge(checkitem.textDisplayed, checkitem.element);
+                if (parsed)
                     works.push(parsed);
-                    return;
-                }
-
-                var badge = $(checkitem.element).find('.sigtrello-time');
-                for (var i = 0; i < badge.length; ++i) {
-                    works.push($(badge[i]).data('sigtrello-work'));
-                }
             });
         });
 
@@ -121,11 +114,11 @@ var SigTrello;
     }
 
     function doRename(card, newName) {
-        console.log("Kick off rename of \"" + card.title + "\" => \"" + newName + "\"");
+        if (SigTrello.Options.current.option_developer_spamlogs)
+            console.log("Kick off rename of \"" + card.title + "\" => \"" + newName + "\"");
+
         if (enableAutomaticRenames)
             Trello.put("/card/" + card.shortId + "/name", { "value": newName });
-        else
-            console.log("/1/card/" + card.shortId + "/name", { "value": newName });
     }
 
     var lastAttemptedRenameCard;

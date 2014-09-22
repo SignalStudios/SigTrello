@@ -65,6 +65,7 @@ module SigTrello {
 			var newTitle	= stripTitleWork( node.textContent );
 
 			if( node.textContent != newTitle ) {
+				$(node.parentNode).remove( ".badge" );
 				var badge = createChecklistBadge( work );
 				$(node.parentNode).append( badge );
 				node.textContent = newTitle;
@@ -102,6 +103,8 @@ module SigTrello {
 			checklist.items.forEach( (checkitem) => {
 				element_replaceWithFakeBadges( $(checkitem.element).find('.checklist-item-details-text')[0] );
 			});
+			element_replaceWithFakeBadges( $(checklist.element).find('.checklist-title h3')[0] );
 		});
+		element_replaceWithFakeBadges( $(".window-title-text")[0] );
 	}
 }

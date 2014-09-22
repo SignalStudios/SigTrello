@@ -34,11 +34,28 @@ module SigTrello {
 		}
 	}
 
+	export function parseTitleWorkOrBadge( title : string, element : Element ) {
+		var parsed = parseTitleWork( title );
+		if( parsed )
+			return parsed;
+
+		var badge = $(element).find( '.sigtrello-time' );
+		for( var i=0; i<badge.length; ++i ) {
+			return $(badge[i]).data( 'sigtrello-work' );
+		}
+
+		return null;
+	}
+
 	export function stripTitleWork( title : string ) : string {
 		title = title.replace( /\s*\((\d*\.?\d*)\)\s*/i, "" );
 		title = title.replace( /\s*\[(\d*\.?\d*)\]\s*/i, "" );
 		title = title.replace( /\s*\{(\d*\.?\d*)\}\s*/i, "" );
 		return title;
+	}
+
+	export function equalWork( lhs : IWork, rhs : IWork ) : boolean {
+		return lhs.original == rhs.original && lhs.remaining == rhs.remaining && lhs.worked == rhs.worked;
 	}
 
 	export function sumWork( works : IWork[] ) : IWork {

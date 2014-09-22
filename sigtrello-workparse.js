@@ -28,6 +28,20 @@ var SigTrello;
     }
     SigTrello.parseTitleWork = parseTitleWork;
 
+    function parseTitleWorkOrBadge(title, element) {
+        var parsed = parseTitleWork(title);
+        if (parsed)
+            return parsed;
+
+        var badge = $(element).find('.sigtrello-time');
+        for (var i = 0; i < badge.length; ++i) {
+            return $(badge[i]).data('sigtrello-work');
+        }
+
+        return null;
+    }
+    SigTrello.parseTitleWorkOrBadge = parseTitleWorkOrBadge;
+
     function stripTitleWork(title) {
         title = title.replace(/\s*\((\d*\.?\d*)\)\s*/i, "");
         title = title.replace(/\s*\[(\d*\.?\d*)\]\s*/i, "");
@@ -35,6 +49,11 @@ var SigTrello;
         return title;
     }
     SigTrello.stripTitleWork = stripTitleWork;
+
+    function equalWork(lhs, rhs) {
+        return lhs.original == rhs.original && lhs.remaining == rhs.remaining && lhs.worked == rhs.worked;
+    }
+    SigTrello.equalWork = equalWork;
 
     function sumWork(works) {
         var sum = { "original": 0.0, "remaining": 0.0, "worked": 0.0 };

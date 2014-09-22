@@ -25,29 +25,20 @@ var SigTrello;
             var anyRound = false;
             var anySquare = false;
 
+            var works = [];
             checklist.items.forEach(function (item) {
                 var includeLinks = false;
                 var itemText = includeLinks ? item.textDisplayed : item.textEntered;
-                var itemRounds = itemText.match(reRound);
-                var itemSquares = itemText.match(reSquare);
-
-                if (itemRounds != null) {
-                    round += parseFloat(itemRounds[1]);
-                    anyRound = true;
-                }
-
-                if (itemSquares != null) {
-                    square += parseFloat(itemSquares[1]);
-                    anySquare = true;
-                }
+                var work = SigTrello.parseTitleWorkOrBadge(itemText, item.element);
+                if (work)
+                    works.push(work);
             });
 
-            if (anyRound && checklist.displayTitle.match(reRound) == null)
-                checklist.displayTitle += " (0)";
-            if (anySquare && checklist.displayTitle.match(reSquare) == null)
-                checklist.displayTitle += " [0]";
-
-            checklist.displayTitle = checklist.displayTitle.replace(reRound, "(" + round.toString() + ")").replace(reSquare, "[" + square.toString() + "]");
+            var work = SigTrello.sumWork(works);
+            var currentWork = SigTrello.parseTitleWorkOrBadge(checklist.displayTitle, checklist.element);
+            if (work && currentWork && !SigTrello.equalWork(work, currentWork)) {
+                checklist.displayTitle = SigTrello.stripTitleWork(checklist.displayTitle) + " " + SigTrello.toTrelloPoints(0 /* RawTitle */, work);
+            }
         });
     }
     SigTrello.sumChecklistTimes = sumChecklistTimes;

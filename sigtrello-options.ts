@@ -22,6 +22,7 @@ module SigTrello {
 			option_display_p4web_rooturl:			string;
 			option_developer_nospam:				boolean;
 			option_developer_log_errors:			boolean;
+			option_developer_spamlogs:				boolean;
 		}
 
 		var defaults : Data = {
@@ -35,6 +36,7 @@ module SigTrello {
 			option_display_p4web_rooturl:			"http://perforce.openwatcom.org:4000",
 			option_developer_nospam:				false,
 			option_developer_log_errors:			false,
+			option_developer_spamlogs:				false,
 		};
 
 		function clone( data : Data ) : Data {
@@ -47,6 +49,7 @@ module SigTrello {
 			current.option_actions_worksum_enable			= $("#option-actions-worksum-enable")			.prop("checked");
 			current.option_developer_log_errors				= $("#option-developer-log-errors")				.prop("checked");
 			current.option_developer_nospam					= $("#option-developer-nospam")					.prop("checked");
+			current.option_developer_spamlogs				= $("#option-developer-spamlogs")				.prop("checked");
 			current.option_display_checklist2cards_enable	= $("#option-display-checklist2cards-enable")	.prop("checked");
 			current.option_display_listcollapse_enable		= $("#option-display-listcollapse-enable")		.prop("checked");
 			current.option_display_p4web_rooturl			= $("#option-display-p4web-rooturl")			.val( );
@@ -63,6 +66,7 @@ module SigTrello {
 				$("#option-actions-worksum-enable")			.prop( "checked",	current.option_actions_worksum_enable );
 				$("#option-developer-log-errors")			.prop( "checked",	current.option_developer_log_errors );
 				$("#option-developer-nospam")				.prop( "checked",	current.option_developer_nospam );
+				$("#option-developer-spamlogs")				.prop( "checked",	current.option_developer_spamlogs );
 				$("#option-display-checklist2cards-enable")	.prop( "checked",	current.option_display_checklist2cards_enable );
 				$("#option-display-listcollapse-enable")	.prop( "checked",	current.option_display_listcollapse_enable );
 				$("#option-display-p4web-rooturl")			.val(				current.option_display_p4web_rooturl );
