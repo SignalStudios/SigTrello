@@ -142,13 +142,12 @@ module SigTrello {
 	export function onChangesDone( ) {
 		var card = SigTrelloDom.CardWindow.Card.current;
 		if( card == null ) return;
-		var title = card.title;
 
 		var comments = sumCommentWork( );
 		var checklists = sumChecklistWork( );
 		var sumFound = sumWork( [ comments, checklists ] );
 
-		var current = parseTitleWork( title );
+		var current = parseTitleWorkOrBadge( card.title, card.element );
 		if( sumFound == null ) return;
 		if( current == null ) return;
 
@@ -159,7 +158,8 @@ module SigTrello {
 		if( expected == actual ) {
 			//console.log( "Expected == actual == ", expected );
 		} else {
-			var newTitle = stripTitleWork( title ) + " " + expected;
+			$(card.element).find(".window-title-text .sigtrello-time").remove();
+			var newTitle = stripTitleWork( card.title ) + " " + expected;
 			//console.log( "Expected (", expected, ") != actual (", actual, ")" );
 			//console.log( "Should rename \"" + title + "\" => \"" + newTitle + "\"" );
 			shouldChangeName( card, newTitle );

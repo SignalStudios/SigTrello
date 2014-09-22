@@ -52,7 +52,7 @@ var SigTrello;
             var newTitle = SigTrello.stripTitleWork(node.textContent);
 
             if (node.textContent != newTitle) {
-                $(node.parentNode).remove(".badge");
+                $(node.parentNode).find(".sigtrello-time").remove();
                 var badge = createChecklistBadge(work);
                 $(node.parentNode).append(badge);
                 node.textContent = newTitle;
@@ -96,7 +96,8 @@ var SigTrello;
             });
             element_replaceWithFakeBadges($(checklist.element).find('.checklist-title h3')[0]);
         });
-        element_replaceWithFakeBadges($(".window-title-text")[0]);
+        element_replaceWithFakeBadges($(card.element).find(".window-title-text")[0]);
+        element_replaceWithFakeBadges($(card.element).find(".js-card-desc")[0]);
     }
 })(SigTrello || (SigTrello = {}));
 //# sourceMappingURL=sigtrello-workbadges.js.map

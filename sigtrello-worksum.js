@@ -145,13 +145,12 @@ var SigTrello;
         var card = SigTrelloDom.CardWindow.Card.current;
         if (card == null)
             return;
-        var title = card.title;
 
         var comments = sumCommentWork();
         var checklists = sumChecklistWork();
         var sumFound = SigTrello.sumWork([comments, checklists]);
 
-        var current = SigTrello.parseTitleWork(title);
+        var current = SigTrello.parseTitleWorkOrBadge(card.title, card.element);
         if (sumFound == null)
             return;
         if (current == null)
@@ -164,7 +163,8 @@ var SigTrello;
         if (expected == actual) {
             //console.log( "Expected == actual == ", expected );
         } else {
-            var newTitle = SigTrello.stripTitleWork(title) + " " + expected;
+            $(card.element).find(".window-title-text .sigtrello-time").remove();
+            var newTitle = SigTrello.stripTitleWork(card.title) + " " + expected;
 
             //console.log( "Expected (", expected, ") != actual (", actual, ")" );
             //console.log( "Should rename \"" + title + "\" => \"" + newTitle + "\"" );
