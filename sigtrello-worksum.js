@@ -51,7 +51,7 @@ var SigTrello;
         var estRemaining = 0.0;
         var estWorked = 0.0;
 
-        var pattern = /(work|worked|estimate|estimated)\s+([=+-])?(\d+\.?\d*|\d*\.?\d+)([wdhm])/gi;
+        var pattern = /(work|worked|estimate|estimated)[:]?\s+([=+-])?(\d+\.?\d*|\d*\.?\d+)([wdhm])/gi;
         var scale = { "w": 40, "d": 8, "h": 1, "m": 1.0 / 60 };
 
         var foundAnyWork = false;
