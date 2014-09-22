@@ -1,0 +1,38 @@
+﻿.sigtrello-time .icon-sm {
+	color:			white;
+}
+
+span.sigtrello-time {
+	padding:				0px 3px 0px 0px;
+	margin:					0px -4px 0px 4px;
+	display:				inline-block;
+	text-decoration-line:	initial;
+}
+
+.sigtrello-time {
+	border-radius:			3px;
+	color:					white;
+	background-repeat:		no-repeat;
+}
+
+.sigtrello-time-worked {
+	background-image:		linear-gradient(#24a828, #24a828), linear-gradient(#000000, #000000);
+	background-size:		50% 100%, 100% 100%;
+}
+
+.sigtrello-time-worked-vs-current-estimate {
+	background-image:		linear-gradient(#d5b500, #d5b500), linear-gradient(#000000, #000000), linear-gradient(#24a828, #24a828), linear-gradient(#000000, #000000);
+	background-size:		40% 50%, 100% 50%, 60% 100%, 100% 100%;
+}
+
+.sigtrello-time-worked-vs-original-estimate {
+	background-image:		linear-gradient(#00aed5, #00aed5), linear-gradient(#000000, #000000), linear-gradient(#24a828, #24a828), linear-gradient(#000000, #000000);
+	background-size:		40% 50%, 100% 50%, 60% 100%, 100% 100%;
+}
+
+
+.sigtrello-time-worked-vs-estimates {
+	background-color:		#000000, #00aed5, #000000, #d5b500, #000000, #24a828;
+	background-image:		linear-gradient(#00aed5, #00aed5), linear-gradient(#000000, #000000), linear-gradient(#d5b500, #d5b500), linear-gradient(#000000, #000000), linear-gradient(#24a828, #24a828), linear-gradient(#000000, #000000);
+	background-size:		40% 33%, 100% 33%, 50% 66%, 100% 66%, 60% 100%, 100% 100%;
+}

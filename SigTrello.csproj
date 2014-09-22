@@ -54,6 +54,7 @@
     <TypeScriptCompile Include="mutation-observer.d.ts" />
     <TypeScriptCompile Include="sigtrello-core.ts" />
     <TypeScriptCompile Include="sigtrello-debug.ts" />
+    <TypeScriptCompile Include="sigtrello-options.ts" />
     <TypeScriptCompile Include="sigtrello-servicelinks.ts" />
     <TypeScriptCompile Include="sigtrello-workbadges.ts" />
     <TypeScriptCompile Include="sigtrello-workparse.ts" />
@@ -71,6 +72,7 @@
     <Content Include="jquery-2.1.0.min.js" />
     <Content Include="jquery-ba-throttle-debounce.js" />
     <Content Include="LICENSE.txt" />
+    <Content Include="sigtrello-badges.css" />
     <Content Include="sigtrello-options.css" />
     <Content Include="sigtrello-options.html" />
     <TypeScriptCompile Include="sigtrellodom-cardwindow.ts" />

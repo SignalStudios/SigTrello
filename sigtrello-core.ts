@@ -13,6 +13,10 @@
 interface JQueryXHR extends JQueryPromise {} // Some missing methods from jquery-2.1.0.d.ts
 
 module SigTrello {
+	export interface NamedThing {
+		name : string;
+	}
+
 	var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null;
 
 	export function getBestByNameIndex< T extends NamedThing >( name : string, index : number, items : T[] ) : T {

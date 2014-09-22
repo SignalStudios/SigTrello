@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 	<title>Options &ndash; Signal Extensions for Trello</title>
 	<link rel="stylesheet" href="sigtrello-options.css">
+	<link rel="stylesheet" href="sigtrello-badges.css">
 </head><body>
 	<div class="settings">
 	<h1>Options &ndash; Signal Extensions for Trello</h1>
@@ -9,7 +10,13 @@
 		<th> </th>
 		<th colspan="2" class="category">Enable Features</th>
 	</tr><tr>
-		<th>Time Tracking Badges</th>
+		<th>
+			Time Tracking Badges<br>
+			<span class="sigtrello-time sigtrello-time-worked">like this!</span>
+			<span class="sigtrello-time sigtrello-time-worked-vs-current-estimate">or this!</span>
+			<span class="sigtrello-time sigtrello-time-worked-vs-original-estimate">or this!</span>
+			<span class="sigtrello-time sigtrello-time-worked-vs-estimates">or this!</span>
+		</th>
 		<td><input id="option-display-workbadge-enable" type="checkbox" checked /></td>
 		<td>
 			<em>Likely interferes with 'Scrum for Trello'</em><br>
@@ -86,4 +93,9 @@
 			<input id="action-settings-cancel" type="button" value="Cancel">
 		</th>
 	</tr></table></div>
+	<script src="jquery-2.1.0.js"></script>
+	<script src="jquery-ba-throttle-debounce.js"></script>
+	<script src="sigtrello-workparse.js"></script>
+	<script src="sigtrello-all.js"></script>
+	<script src="sigtrello-options.js"></script>
 </body></html>

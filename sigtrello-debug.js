@@ -8,14 +8,14 @@
 var SigTrello;
 (function (SigTrello) {
     function error(message) {
-        //alert( message );
+        if (SigTrello.Options.current.option_developer_log_errors)
+            alert(message);
     }
     SigTrello.error = error;
 
     var spamLimitCounter = 100;
     function spamLimit() {
-        //return --spamLimitCounter < 0;
-        return false;
+        return SigTrello.Options.current.option_developer_nospam && --spamLimitCounter < 0;
     }
     SigTrello.spamLimit = spamLimit;
 })(SigTrello || (SigTrello = {}));

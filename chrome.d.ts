@@ -6,20 +6,29 @@
  * See LICENSE.txt
  */
 
-interface ChromeStatic {
-	extension : ChromeExtension;
-}
+declare module Chrome {
+	interface Static {
+		extension : Extension;
+		storage : Storage;
+	}
 
-interface ChromeExtension {
-	getURL( url : string ) : string;
+
+	interface Storage {
+		sync : StorageSync;
+	}
+
+	interface StorageSync {
+		get<T>( fallbacks : T, onStorageLoaded : (values : T ) => void ) : void;
+		set<T>( settings : T, onStorageSaved : () => void ) : void;
+	}
+
+	interface Extension {
+		getURL( url : string ) : string;
+	}
 }
 
 interface Document {
 	baseURI : string;
 }
 
-interface NamedThing {
-	name : string;
-}
-
-declare var chrome : ChromeStatic;
+declare var chrome : Chrome.Static;

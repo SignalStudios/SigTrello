@@ -45,7 +45,7 @@ module SigTrello {
 
 	function createChecklistBadge( work : IWork ) : JQuery {
 		var titleFormat = WorkFormat.Badge_LongDescription;
-		var badgeFormat = WorkFormat.Badge_WorkOfCurrent;
+		var textFormat = WorkFormat[Options.current.option_display_workbadge_text];
 
 		var perc = toPercentage( work.worked, work.remaining + work.worked );
 
@@ -54,7 +54,7 @@ module SigTrello {
 			.attr( "style", "padding: 0px 3px 0px 0px; margin: 0px -4px 0px 4px; display: inline-block; text-decoration-line: initial; border-radius: 3px; color: white; background: linear-gradient(to right, #24a828 "+perc+"%, #000000 "+perc+"%)" )
 			.addClass( isWorkComplete( work ) ? "badge-state-complete" : "" )
 			.append( $("<span class=\"icon-sm icon-clock\" style=\"color: white;\"></span>") )
-			.append( $("<span class=\"\"></span>").text( toTrelloPoints( badgeFormat, work ) ) )
+			.append( $("<span class=\"\"></span>").text( toTrelloPoints( textFormat, work ) ) )
 			.data( 'sigtrello-work', work )
 			;
 	}

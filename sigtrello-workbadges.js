@@ -39,11 +39,11 @@ var SigTrello;
 
     function createChecklistBadge(work) {
         var titleFormat = 5 /* Badge_LongDescription */;
-        var badgeFormat = 1 /* Badge_WorkOfCurrent */;
+        var textFormat = SigTrello.WorkFormat[SigTrello.Options.current.option_display_workbadge_text];
 
         var perc = toPercentage(work.worked, work.remaining + work.worked);
 
-        return $("<span class=\"sigtrello-time\" style=\"\"></div>").attr("title", SigTrello.toTrelloPoints(titleFormat, work)).attr("style", "padding: 0px 3px 0px 0px; margin: 0px -4px 0px 4px; display: inline-block; text-decoration-line: initial; border-radius: 3px; color: white; background: linear-gradient(to right, #24a828 " + perc + "%, #000000 " + perc + "%)").addClass(SigTrello.isWorkComplete(work) ? "badge-state-complete" : "").append($("<span class=\"icon-sm icon-clock\" style=\"color: white;\"></span>")).append($("<span class=\"\"></span>").text(SigTrello.toTrelloPoints(badgeFormat, work))).data('sigtrello-work', work);
+        return $("<span class=\"sigtrello-time\" style=\"\"></div>").attr("title", SigTrello.toTrelloPoints(titleFormat, work)).attr("style", "padding: 0px 3px 0px 0px; margin: 0px -4px 0px 4px; display: inline-block; text-decoration-line: initial; border-radius: 3px; color: white; background: linear-gradient(to right, #24a828 " + perc + "%, #000000 " + perc + "%)").addClass(SigTrello.isWorkComplete(work) ? "badge-state-complete" : "").append($("<span class=\"icon-sm icon-clock\" style=\"color: white;\"></span>")).append($("<span class=\"\"></span>").text(SigTrello.toTrelloPoints(textFormat, work))).data('sigtrello-work', work);
     }
 
     function element_replaceWithFakeBadges(node) {
