@@ -53,14 +53,23 @@ module SigTrello {
 			current.option_display_p4weblinks_enable		= $("#option-display-p4weblinks-enable")		.prop("checked");
 			current.option_display_workbadge_enable			= $("#option-display-workbadge-enable")			.prop("checked");
 			current.option_display_workbadge_text			= $("#option-display-workbadge-text")			.prop("value");
-			console.log(current);
-
 			chrome.storage.sync.set( current, () => {} );
 		}
 
 		export function load( ) {
 			chrome.storage.sync.get( defaults, newData => {
 				current = newData;
+
+				$("#option-actions-worksum-enable")			.prop( "checked",	current.option_actions_worksum_enable );
+				$("#option-developer-log-errors")			.prop( "checked",	current.option_developer_log_errors );
+				$("#option-developer-nospam")				.prop( "checked",	current.option_developer_nospam );
+				$("#option-display-checklist2cards-enable")	.prop( "checked",	current.option_display_checklist2cards_enable );
+				$("#option-display-listcollapse-enable")	.prop( "checked",	current.option_display_listcollapse_enable );
+				$("#option-display-p4web-rooturl")			.val(				current.option_display_p4web_rooturl );
+				$("#option-display-p4weblinks-enable")		.prop( "checked",	current.option_display_p4weblinks_enable );
+				$("#option-display-workbadge-enable")		.prop( "checked",	current.option_display_workbadge_enable );
+				$("#option-display-workbadge-text")			.prop( "value",		current.option_display_workbadge_text );
+
 				SigTrello.main();
 				$("#action-settings-save").on("click",save);
 			});

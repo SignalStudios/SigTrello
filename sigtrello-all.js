@@ -46,7 +46,7 @@ var SigTrello;
             }
         }
 
-        if (SigTrello.Options.current.option_display_workbadge_enabled) {
+        if (SigTrello.Options.current.option_display_workbadge_enable) {
             SigTrello.showTitleWorkBadges();
         }
     }

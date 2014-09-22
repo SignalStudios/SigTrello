@@ -39,8 +39,6 @@ var SigTrello;
             Options.current.option_display_p4weblinks_enable = $("#option-display-p4weblinks-enable").prop("checked");
             Options.current.option_display_workbadge_enable = $("#option-display-workbadge-enable").prop("checked");
             Options.current.option_display_workbadge_text = $("#option-display-workbadge-text").prop("value");
-            console.log(Options.current);
-
             chrome.storage.sync.set(Options.current, function () {
             });
         }
@@ -49,6 +47,17 @@ var SigTrello;
         function load() {
             chrome.storage.sync.get(defaults, function (newData) {
                 Options.current = newData;
+
+                $("#option-actions-worksum-enable").prop("checked", Options.current.option_actions_worksum_enable);
+                $("#option-developer-log-errors").prop("checked", Options.current.option_developer_log_errors);
+                $("#option-developer-nospam").prop("checked", Options.current.option_developer_nospam);
+                $("#option-display-checklist2cards-enable").prop("checked", Options.current.option_display_checklist2cards_enable);
+                $("#option-display-listcollapse-enable").prop("checked", Options.current.option_display_listcollapse_enable);
+                $("#option-display-p4web-rooturl").val(Options.current.option_display_p4web_rooturl);
+                $("#option-display-p4weblinks-enable").prop("checked", Options.current.option_display_p4weblinks_enable);
+                $("#option-display-workbadge-enable").prop("checked", Options.current.option_display_workbadge_enable);
+                $("#option-display-workbadge-text").prop("value", Options.current.option_display_workbadge_text);
+
                 SigTrello.main();
                 $("#action-settings-save").on("click", save);
             });

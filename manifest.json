@@ -30,7 +30,6 @@
 				"sigtrello-collapselists.js",
 				"sigtrello-servicelinks.js",
 				"sigtrello-sum-checklist-times.js",
-				"sigtrello-options.js",
 				"sigtrello-core.js",
 				"sigtrello-debug.js",
 
@@ -40,7 +39,9 @@
 
 				"sigtrellodom-common.js",
 				"sigtrellodom-boardwindow.js",
-				"sigtrellodom-cardwindow.js"
+				"sigtrellodom-cardwindow.js",
+
+				"sigtrello-options.js"
 			]
 		}
 	],
@@ -55,7 +56,6 @@
 		"sigtrello-collapselists.ts",		"sigtrello-collapselists.js.map",
 		"sigtrello-servicelinks.ts",		"sigtrello-servicelinks.js.map",
 		"sigtrello-sum-checklist-times.ts",	"sigtrello-sum-checklist-times.js.map",
-		"sigtrello-options.ts",				"sigtrello-options.js.map",
 		"sigtrello-core.ts",				"sigtrello-core.js.map",
 		"sigtrello-debug.ts",				"sigtrello-debug.js.map",
 
@@ -65,6 +65,8 @@
 
 		"sigtrellodom-common.ts",			"sigtrellodom-common.js.map",
 		"sigtrellodom-boardwindow.ts",		"sigtrellodom-boardwindow.js.map",
-		"sigtrellodom-cardwindow.ts",		"sigtrellodom-cardwindow.js.map"
+		"sigtrellodom-cardwindow.ts",		"sigtrellodom-cardwindow.js.map",
+
+		"sigtrello-options.ts",				"sigtrello-options.js.map"
 	]
 }
